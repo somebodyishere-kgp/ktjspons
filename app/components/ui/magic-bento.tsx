@@ -41,7 +41,7 @@ export function MagicBentoItem({
 
   return (
     <div
-      className={cn("relative min-h-[200px] sm:min-h-[250px] md:min-h-[300px]", className)}
+      className={cn("relative min-h-[180px] sm:min-h-[200px] md:min-h-[250px]", className)}
       style={style}
     >
       {children}

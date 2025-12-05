@@ -101,20 +101,7 @@ export default function PreviousSponsors() {
 
         {/* Platinum Tier */}
         {platinumSponsors.length > 0 && (
-          <div className="mb-16">
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              className="text-center mb-8 px-8"
-            >
-              <div className="inline-flex items-center gap-3 px-6 py-2 bg-gradient-to-r from-yellow-400/20 via-yellow-500/20 to-yellow-600/20 border border-yellow-500/30 rounded-full backdrop-blur-sm">
-                <svg className="w-5 h-5 text-yellow-400" fill="currentColor" viewBox="0 0 20 20">
-                  <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
-                </svg>
-                <span className="text-yellow-400 font-bold text-lg uppercase tracking-wider">Platinum Sponsors</span>
-              </div>
-            </motion.div>
+          <div className="mb-12 sm:mb-16">
             
             <div className="relative overflow-x-auto overflow-y-hidden" style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}>
               <motion.div 
@@ -131,20 +118,7 @@ export default function PreviousSponsors() {
 
         {/* Gold Tier */}
         {goldSponsors.length > 0 && (
-          <div className="mb-16">
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              className="text-center mb-8 px-8"
-            >
-              <div className="inline-flex items-center gap-3 px-6 py-2 bg-gradient-to-r from-yellow-600/20 via-yellow-500/20 to-amber-500/20 border border-yellow-600/30 rounded-full backdrop-blur-sm">
-                <svg className="w-5 h-5 text-yellow-500" fill="currentColor" viewBox="0 0 20 20">
-                  <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
-                </svg>
-                <span className="text-yellow-500 font-bold text-lg uppercase tracking-wider">Gold Sponsors</span>
-              </div>
-            </motion.div>
+          <div className="mb-12 sm:mb-16">
             
             <div className="relative overflow-x-auto overflow-y-hidden" style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}>
               <motion.div 
@@ -160,20 +134,7 @@ export default function PreviousSponsors() {
         )}
 
         {/* Silver & Bronze Combined */}
-        <div className="mb-16">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            className="text-center mb-8 px-8"
-          >
-            <div className="inline-flex items-center gap-3 px-6 py-2 bg-gradient-to-r from-gray-400/20 via-gray-300/20 to-gray-200/20 border border-gray-400/30 rounded-full backdrop-blur-sm">
-              <svg className="w-5 h-5 text-gray-300" fill="currentColor" viewBox="0 0 20 20">
-                <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
-              </svg>
-              <span className="text-gray-300 font-bold text-lg uppercase tracking-wider">Silver & Bronze Sponsors</span>
-            </div>
-          </motion.div>
+        <div className="mb-12 sm:mb-16">
           
           {/* Silver Row */}
           {silverSponsors.length > 0 && (

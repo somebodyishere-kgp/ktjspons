@@ -127,8 +127,8 @@ export default function Graphs() {
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          transition={{ duration: 0.8 }}
-          className="text-3xl sm:text-4xl md:text-5xl lg:text-7xl font-bold text-white mb-6 sm:mb-8 text-center px-4"
+          transition={{ duration: 0.5 }}
+          className="text-2xl sm:text-3xl md:text-4xl lg:text-6xl font-bold text-white mb-4 sm:mb-6 md:mb-8 text-center px-4"
         >
           STATISTICS & DATA
         </motion.h2>
@@ -171,16 +171,16 @@ export default function Graphs() {
           
           {/* Bento Grid Layout using Magic Bento Component */}
           <MagicBento className="relative z-10">
-          {/* Donut Chart 1 - Events Distribution - Span 2 cols, 1 row */}
-          <MagicBentoItem span={2} rowSpan={1}>
+          {/* Donut Chart 1 - Events Distribution - Responsive span */}
+          <MagicBentoItem span={2} rowSpan={1} className="sm:col-span-2">
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, margin: "-50px" }}
-              transition={{ duration: 0.6, delay: 0, ease: "easeOut" }}
-              whileHover={{ scale: 1.02, transition: { duration: 0.3, ease: "easeOut" } }}
-              className="relative p-3 sm:p-4 flex flex-col h-full border-r border-b border-red-500/20 hover:border-red-500/40 transition-all duration-300 group overflow-hidden"
-              style={{ transform: 'translateZ(0)', willChange: 'auto' }}
+              transition={{ duration: 0.4, delay: 0, ease: "easeOut" }}
+              whileHover={{ scale: 1.01, transition: { duration: 0.2, ease: "easeOut" } }}
+              className="relative p-2 sm:p-3 md:p-4 flex flex-col h-full border-r border-b border-red-500/20 hover:border-red-500/40 transition-all duration-200 group overflow-hidden"
+              style={{ transform: 'translateZ(0)' }}
             >
               {/* Enhanced glow on hover */}
               <div className="absolute inset-0 bg-gradient-to-br from-red-500/10 via-red-500/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none" />
@@ -188,24 +188,22 @@ export default function Graphs() {
               {/* Decorative accent line */}
               <div className="absolute top-0 left-1/2 -translate-x-1/2 w-16 h-0.5 bg-gradient-to-r from-transparent via-red-500 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
               
-              <h3 className="text-sm font-bold text-white mb-1 text-center relative z-10 group-hover:scale-105 transition-transform duration-300">
-                <span className="text-red-500 group-hover:text-red-400 transition-colors">Events</span> Distribution
+              <h3 className="text-xs sm:text-sm font-bold text-white mb-1 text-center relative z-10">
+                <span className="text-red-500">Events</span> Distribution
               </h3>
               <div className="relative flex-1 flex items-center justify-center" style={{ transform: 'translateZ(0)' }}>
-                <ResponsiveContainer width="100%" height="100%" minHeight={200}>
+                <ResponsiveContainer width="100%" height="100%" minHeight={150}>
                   <PieChart>
                     <Tooltip content={<CustomTooltip />} />
                     <Pie
                       data={donutData1}
                       cx="50%"
                       cy="50%"
-                      innerRadius={60}
-                      outerRadius={100}
-                      paddingAngle={5}
+                      innerRadius="40%"
+                      outerRadius="70%"
+                      paddingAngle={3}
                       dataKey="value"
-                      isAnimationActive={true}
-                      animationDuration={800}
-                      animationEasing="ease-out"
+                      isAnimationActive={false}
                     >
                       {donutData1.map((entry, index) => (
                         <Cell 
@@ -213,12 +211,10 @@ export default function Graphs() {
                           fill={entry.color}
                           onMouseEnter={() => handleDonut1Hover(index)}
                           onMouseLeave={() => handleDonut1Hover(null)}
-                          className={`chart-cell transition-all duration-300 ease-out ${hoverStates.donut1 === index ? 'chart-cell-hover' : ''}`}
+                          className="transition-all duration-200"
                           style={{ 
                             transform: 'translateZ(0)',
-                            transformOrigin: '50% 50%',
                             cursor: 'pointer',
-                            willChange: hoverStates.donut1 === index ? 'transform, filter' : 'auto',
                           }} 
                         />
                       ))}
@@ -230,48 +226,41 @@ export default function Graphs() {
           </MagicBentoItem>
 
           {/* Donut Chart 2 - Regional Participation - Span 1 col */}
-          <MagicBentoItem span={1}>
+          <MagicBentoItem span={1} className="sm:col-span-1">
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, margin: "-50px" }}
-              transition={{ duration: 0.6, delay: 0.05, ease: "easeOut" }}
-              whileHover={{ scale: 1.02, transition: { duration: 0.3, ease: "easeOut" } }}
-              className="relative p-3 sm:p-4 flex flex-col h-full border-r border-b border-red-500/20 hover:border-red-500/40 transition-all duration-300 group"
-              style={{ transform: 'translateZ(0)', willChange: 'auto' }}
+              transition={{ duration: 0.4, delay: 0.05, ease: "easeOut" }}
+              whileHover={{ scale: 1.01, transition: { duration: 0.2, ease: "easeOut" } }}
+              className="relative p-2 sm:p-3 md:p-4 flex flex-col h-full border-r border-b border-red-500/20 hover:border-red-500/40 transition-all duration-200 group"
+              style={{ transform: 'translateZ(0)' }}
             >
-              <div className="absolute top-0 left-1/2 -translate-x-1/2 w-12 h-0.5 bg-gradient-to-r from-transparent via-red-500 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
               <h3 className="text-xs font-bold text-white mb-1 text-center relative z-10">
-                <span className="text-red-500 group-hover:text-red-400 transition-colors">Regional</span> Participation
+                <span className="text-red-500">Regional</span> Participation
               </h3>
               <div className="relative flex-1 flex items-center justify-center" style={{ transform: 'translateZ(0)' }}>
-                <ResponsiveContainer width="100%" height="100%" minHeight={200}>
+                <ResponsiveContainer width="100%" height="100%" minHeight={150}>
                   <PieChart>
                     <Tooltip content={<CustomTooltip />} />
                     <Pie
                       data={donutData2}
                       cx="50%"
                       cy="50%"
-                      innerRadius={60}
-                      outerRadius={100}
-                      paddingAngle={5}
+                      innerRadius="40%"
+                      outerRadius="70%"
+                      paddingAngle={3}
                       dataKey="value"
-                      isAnimationActive={true}
-                      animationDuration={800}
-                      animationEasing="ease-out"
+                      isAnimationActive={false}
                     >
                       {donutData2.map((entry, index) => (
                         <Cell 
                           key={`cell-${index}`} 
                           fill={entry.color}
-                          onMouseEnter={() => handleDonut2Hover(index)}
-                          onMouseLeave={() => handleDonut2Hover(null)}
-                          className={`chart-cell transition-all duration-300 ease-out ${hoverStates.donut2 === index ? 'chart-cell-hover' : ''}`}
+                          className="transition-all duration-200"
                           style={{ 
                             transform: 'translateZ(0)',
-                            transformOrigin: '50% 50%',
                             cursor: 'pointer',
-                            willChange: hoverStates.donut2 === index ? 'transform, filter' : 'auto',
                           }} 
                         />
                       ))}
@@ -283,42 +272,39 @@ export default function Graphs() {
           </MagicBentoItem>
 
           {/* Bar Chart 1 - Kascades Growth - Span 1 col */}
-          <MagicBentoItem span={1}>
+          <MagicBentoItem span={1} className="sm:col-span-1">
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, margin: "-50px" }}
-              transition={{ duration: 0.6, delay: 0.1, ease: "easeOut" }}
-              whileHover={{ scale: 1.02, transition: { duration: 0.3, ease: "easeOut" } }}
-              className="relative p-4 flex flex-col h-full border-b border-red-500/20 hover:border-red-500/40 transition-all duration-300 group"
-              style={{ transform: 'translateZ(0)', willChange: 'auto' }}
+              transition={{ duration: 0.4, delay: 0.1, ease: "easeOut" }}
+              whileHover={{ scale: 1.01, transition: { duration: 0.2, ease: "easeOut" } }}
+              className="relative p-2 sm:p-3 md:p-4 flex flex-col h-full border-b border-red-500/20 hover:border-red-500/40 transition-all duration-200 group"
+              style={{ transform: 'translateZ(0)' }}
             >
-              <div className="absolute top-0 left-1/2 -translate-x-1/2 w-12 h-0.5 bg-gradient-to-r from-transparent via-red-500 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
               <h3 className="text-xs font-bold text-white mb-1 text-center relative z-10">
-                <span className="text-red-500 group-hover:text-red-400 transition-colors">Kascades</span> Growth
+                <span className="text-red-500">Kascades</span> Growth
               </h3>
               <div className="relative flex-1" style={{ transform: 'translateZ(0)' }}>
-                <ResponsiveContainer width="100%" height="100%" minHeight={200}>
+                <ResponsiveContainer width="100%" height="100%" minHeight={150}>
                   <BarChart data={barChartData1}>
                     <XAxis 
                       dataKey="name" 
                       stroke="#666"
-                      tick={{ fill: '#999', fontSize: 12 }}
+                      tick={{ fill: '#999', fontSize: 10 }}
                       axisLine={{ stroke: '#333' }}
                     />
                     <YAxis 
                       stroke="#666"
-                      tick={{ fill: '#999', fontSize: 12 }}
+                      tick={{ fill: '#999', fontSize: 10 }}
                       axisLine={{ stroke: '#333' }}
                     />
                     <Tooltip content={<CustomTooltip />} cursor={false} />
                     <Bar 
                       dataKey="value" 
                       fill="url(#redGradient)"
-                      radius={[8, 8, 0, 0]}
-                      isAnimationActive={true}
-                      animationDuration={800}
-                      animationEasing="ease-out"
+                      radius={[4, 4, 0, 0]}
+                      isAnimationActive={false}
                     >
                       <defs>
                         <linearGradient id="redGradient" x1="0" y1="0" x2="0" y2="1">
@@ -329,14 +315,10 @@ export default function Graphs() {
                       {barChartData1.map((entry, index) => (
                         <Cell 
                           key={`cell-${index}`}
-                          onMouseEnter={() => handleBar1Hover(index)}
-                          onMouseLeave={() => handleBar1Hover(null)}
-                          className={`chart-cell transition-all duration-300 ease-out ${hoverStates.bar1 === index ? 'chart-bar-hover' : ''}`}
+                          className="transition-all duration-200"
                           style={{ 
                             transform: 'translateZ(0)',
-                            transformOrigin: 'bottom center',
                             cursor: 'pointer',
-                            willChange: hoverStates.bar1 === index ? 'transform, filter' : 'auto',
                           }}
                         />
                       ))}
@@ -347,43 +329,40 @@ export default function Graphs() {
             </motion.div>
           </MagicBentoItem>
 
-          {/* Bar Chart 2 - Instagram Growth - Span 4 cols to fill entire row */}
-          <MagicBentoItem span={4}>
+          {/* Bar Chart 2 - Instagram Growth - Span full width on mobile, 4 cols on desktop */}
+          <MagicBentoItem span={4} className="sm:col-span-2 md:col-span-4">
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, margin: "-50px" }}
-              transition={{ duration: 0.6, delay: 0.15, ease: "easeOut" }}
-              whileHover={{ scale: 1.01, transition: { duration: 0.3, ease: "easeOut" } }}
-              className="relative p-4 flex flex-col h-full border-b border-red-500/20 hover:border-red-500/40 transition-all duration-300 group"
-              style={{ transform: 'translateZ(0)', willChange: 'auto' }}
+              transition={{ duration: 0.4, delay: 0.15, ease: "easeOut" }}
+              whileHover={{ scale: 1.01, transition: { duration: 0.2, ease: "easeOut" } }}
+              className="relative p-2 sm:p-3 md:p-4 flex flex-col h-full border-b border-red-500/20 hover:border-red-500/40 transition-all duration-200 group"
+              style={{ transform: 'translateZ(0)' }}
             >
-              <div className="absolute top-0 left-1/2 -translate-x-1/2 w-24 h-0.5 bg-gradient-to-r from-transparent via-red-500 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
-              <h3 className="text-sm font-bold text-white mb-1 text-center relative z-10">
-                <span className="text-red-500 group-hover:text-red-400 transition-colors">Instagram</span> Growth
+              <h3 className="text-xs sm:text-sm font-bold text-white mb-1 text-center relative z-10">
+                <span className="text-red-500">Instagram</span> Growth
               </h3>
               <div className="relative flex-1 flex items-center" style={{ transform: 'translateZ(0)' }}>
-                <ResponsiveContainer width="100%" height="100%" minHeight={200}>
+                <ResponsiveContainer width="100%" height="100%" minHeight={150}>
                   <BarChart data={barChartData2}>
                     <XAxis 
                       dataKey="name" 
                       stroke="#666"
-                      tick={{ fill: '#999', fontSize: 12 }}
+                      tick={{ fill: '#999', fontSize: 10 }}
                       axisLine={{ stroke: '#333' }}
                     />
                     <YAxis 
                       stroke="#666"
-                      tick={{ fill: '#999', fontSize: 12 }}
+                      tick={{ fill: '#999', fontSize: 10 }}
                       axisLine={{ stroke: '#333' }}
                     />
                     <Tooltip content={<CustomTooltip />} cursor={false} />
                     <Bar 
                       dataKey="followers" 
                       fill="url(#pinkGradient)"
-                      radius={[8, 8, 0, 0]}
-                      isAnimationActive={true}
-                      animationDuration={800}
-                      animationEasing="ease-out"
+                      radius={[4, 4, 0, 0]}
+                      isAnimationActive={false}
                     >
                       <defs>
                         <linearGradient id="pinkGradient" x1="0" y1="0" x2="0" y2="1">
@@ -394,14 +373,10 @@ export default function Graphs() {
                       {barChartData2.map((entry, index) => (
                         <Cell 
                           key={`cell-${index}`}
-                          onMouseEnter={() => handleBar2Hover(index)}
-                          onMouseLeave={() => handleBar2Hover(null)}
-                          className={`chart-cell transition-all duration-300 ease-out ${hoverStates.bar2 === index ? 'chart-bar-hover' : ''}`}
+                          className="transition-all duration-200"
                           style={{ 
                             transform: 'translateZ(0)',
-                            transformOrigin: 'bottom center',
                             cursor: 'pointer',
-                            willChange: hoverStates.bar2 === index ? 'transform, filter' : 'auto',
                           }}
                         />
                       ))}
@@ -413,42 +388,39 @@ export default function Graphs() {
           </MagicBentoItem>
 
           {/* Bar Chart 3 - Participants by Category - Span 1 col */}
-          <MagicBentoItem span={1}>
+          <MagicBentoItem span={1} className="sm:col-span-1">
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, margin: "-50px" }}
-              transition={{ duration: 0.6, delay: 0.2, ease: "easeOut" }}
-              whileHover={{ scale: 1.02, transition: { duration: 0.3, ease: "easeOut" } }}
-              className="relative p-3 sm:p-4 flex flex-col h-full border-r border-b border-red-500/20 hover:border-red-500/40 transition-all duration-300 group"
-              style={{ transform: 'translateZ(0)', willChange: 'auto' }}
+              transition={{ duration: 0.4, delay: 0.2, ease: "easeOut" }}
+              whileHover={{ scale: 1.01, transition: { duration: 0.2, ease: "easeOut" } }}
+              className="relative p-2 sm:p-3 md:p-4 flex flex-col h-full border-r border-b border-red-500/20 hover:border-red-500/40 transition-all duration-200 group"
+              style={{ transform: 'translateZ(0)' }}
             >
-              <div className="absolute top-0 left-1/2 -translate-x-1/2 w-12 h-0.5 bg-gradient-to-r from-transparent via-red-500 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
               <h3 className="text-xs font-bold text-white mb-1 text-center relative z-10">
-                <span className="text-red-500 group-hover:text-red-400 transition-colors">Participants</span> by Category
+                <span className="text-red-500">Participants</span> by Category
               </h3>
               <div className="relative flex-1" style={{ transform: 'translateZ(0)' }}>
-                <ResponsiveContainer width="100%" height="100%" minHeight={200}>
+                <ResponsiveContainer width="100%" height="100%" minHeight={150}>
                   <BarChart data={barChartData3}>
                     <XAxis 
                       dataKey="category" 
                       stroke="#666"
-                      tick={{ fill: '#999', fontSize: 12 }}
+                      tick={{ fill: '#999', fontSize: 10 }}
                       axisLine={{ stroke: '#333' }}
                     />
                     <YAxis 
                       stroke="#666"
-                      tick={{ fill: '#999', fontSize: 12 }}
+                      tick={{ fill: '#999', fontSize: 10 }}
                       axisLine={{ stroke: '#333' }}
                     />
                     <Tooltip content={<CustomTooltip />} cursor={false} />
                     <Bar 
                       dataKey="participants" 
                       fill="url(#lightRedGradient)"
-                      radius={[8, 8, 0, 0]}
-                      isAnimationActive={true}
-                      animationDuration={800}
-                      animationEasing="ease-out"
+                      radius={[4, 4, 0, 0]}
+                      isAnimationActive={false}
                     >
                       <defs>
                         <linearGradient id="lightRedGradient" x1="0" y1="0" x2="0" y2="1">
@@ -459,14 +431,10 @@ export default function Graphs() {
                       {barChartData3.map((entry, index) => (
                         <Cell 
                           key={`cell-${index}`}
-                          onMouseEnter={() => handleBar3Hover(index)}
-                          onMouseLeave={() => handleBar3Hover(null)}
-                          className={`chart-cell transition-all duration-300 ease-out ${hoverStates.bar3 === index ? 'chart-bar-hover' : ''}`}
+                          className="transition-all duration-200"
                           style={{ 
                             transform: 'translateZ(0)',
-                            transformOrigin: 'bottom center',
                             cursor: 'pointer',
-                            willChange: hoverStates.bar3 === index ? 'transform, filter' : 'auto',
                           }}
                         />
                       ))}
@@ -478,42 +446,39 @@ export default function Graphs() {
           </MagicBentoItem>
 
           {/* Bar Chart 4 - Regional Distribution - Span 3 cols to fill remaining space */}
-          <MagicBentoItem span={3}>
+          <MagicBentoItem span={3} className="sm:col-span-2 md:col-span-3">
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, margin: "-50px" }}
-              transition={{ duration: 0.6, delay: 0.25, ease: "easeOut" }}
-              whileHover={{ scale: 1.01, transition: { duration: 0.3, ease: "easeOut" } }}
-              className="relative p-4 flex flex-col h-full border-red-500/20 hover:border-red-500/40 transition-all duration-300 group"
-              style={{ transform: 'translateZ(0)', willChange: 'auto' }}
+              transition={{ duration: 0.4, delay: 0.25, ease: "easeOut" }}
+              whileHover={{ scale: 1.01, transition: { duration: 0.2, ease: "easeOut" } }}
+              className="relative p-2 sm:p-3 md:p-4 flex flex-col h-full border-red-500/20 hover:border-red-500/40 transition-all duration-200 group"
+              style={{ transform: 'translateZ(0)' }}
             >
-              <div className="absolute top-0 left-1/2 -translate-x-1/2 w-20 h-0.5 bg-gradient-to-r from-transparent via-red-500 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
-              <h3 className="text-sm font-bold text-white mb-1 text-center relative z-10">
-                <span className="text-red-500 group-hover:text-red-400 transition-colors">Regional</span> Distribution
+              <h3 className="text-xs sm:text-sm font-bold text-white mb-1 text-center relative z-10">
+                <span className="text-red-500">Regional</span> Distribution
               </h3>
               <div className="relative flex-1" style={{ transform: 'translateZ(0)' }}>
-                <ResponsiveContainer width="100%" height="100%" minHeight={200}>
+                <ResponsiveContainer width="100%" height="100%" minHeight={150}>
                   <BarChart data={barChartData4}>
                     <XAxis 
                       dataKey="region" 
                       stroke="#666"
-                      tick={{ fill: '#999', fontSize: 12 }}
+                      tick={{ fill: '#999', fontSize: 10 }}
                       axisLine={{ stroke: '#333' }}
                     />
                     <YAxis 
                       stroke="#666"
-                      tick={{ fill: '#999', fontSize: 12 }}
+                      tick={{ fill: '#999', fontSize: 10 }}
                       axisLine={{ stroke: '#333' }}
                     />
                     <Tooltip content={<CustomTooltip />} cursor={false} />
                     <Bar 
                       dataKey="colleges" 
                       fill="url(#darkRedGradient)"
-                      radius={[8, 8, 0, 0]}
-                      isAnimationActive={true}
-                      animationDuration={800}
-                      animationEasing="ease-out"
+                      radius={[4, 4, 0, 0]}
+                      isAnimationActive={false}
                     >
                       <defs>
                         <linearGradient id="darkRedGradient" x1="0" y1="0" x2="0" y2="1">
@@ -524,14 +489,10 @@ export default function Graphs() {
                       {barChartData4.map((entry, index) => (
                         <Cell 
                           key={`cell-${index}`}
-                          onMouseEnter={() => handleBar4Hover(index)}
-                          onMouseLeave={() => handleBar4Hover(null)}
-                          className={`chart-cell transition-all duration-300 ease-out ${hoverStates.bar4 === index ? 'chart-bar-hover' : ''}`}
+                          className="transition-all duration-200"
                           style={{ 
                             transform: 'translateZ(0)',
-                            transformOrigin: 'bottom center',
                             cursor: 'pointer',
-                            willChange: hoverStates.bar4 === index ? 'transform, filter' : 'auto',
                           }}
                         />
                       ))}
