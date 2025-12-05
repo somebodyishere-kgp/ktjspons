@@ -1,7 +1,8 @@
 'use client';
 
 import { motion } from 'framer-motion';
-import { forwardRef, useRef } from 'react';
+import { forwardRef, useRef, useEffect, useState } from 'react';
+import { ParticleTextEffect } from '@/components/ui/particle-text-effect';
 
 interface HeroProps {
   titleRef?: React.RefObject<HTMLDivElement | null>;
@@ -12,64 +13,46 @@ const Hero = forwardRef<HTMLDivElement, HeroProps>(({ titleRef }, ref) => {
   const sectionRef = useRef<HTMLDivElement>(null);
   const localTitleRef = useRef<HTMLDivElement>(null);
   const kshitijTextRef = useRef<HTMLSpanElement>(null);
+  const [fontSize, setFontSize] = useState(120);
 
   // Use forwarded ref or local ref
   const mergedSectionRef = (ref as React.RefObject<HTMLDivElement>) || sectionRef;
   const mergedTitleRef = titleRef || localTitleRef;
 
+  // Calculate responsive font size
+  useEffect(() => {
+    const updateFontSize = () => {
+      const width = window.innerWidth;
+      if (width < 768) {
+        setFontSize(60);
+      } else if (width < 1024) {
+        setFontSize(80);
+      } else {
+        setFontSize(120);
+      }
+    };
+
+    updateFontSize();
+    window.addEventListener('resize', updateFontSize);
+    return () => window.removeEventListener('resize', updateFontSize);
+  }, []);
+
   return (
     <section ref={mergedSectionRef} id="hero" className="relative h-screen flex items-center justify-center overflow-hidden">
-      {/* Semi-transparent backdrop for text readability */}
-      <div className="absolute inset-0 bg-black/40" />
+      {/* Particle Text Effect Background */}
+      <ParticleTextEffect 
+        words={["KSHITIJ", "2026", "INNOVATION", "TECHNOLOGY", "CREATIVITY", "EXCELLENCE", "THINK", "CREATE", "ENJOY"]}
+        className="z-0"
+        fontSize={fontSize}
+        fontFamily="Arial, sans-serif"
+        autoResize={true}
+        backgroundColor="rgba(0, 0, 0, 0.05)"
+        motionBlurOpacity={0.05}
+        onChangeInterval={300}
+      />
       
-      {/* Foreground content */}
-      <div className="relative z-10 text-center px-8">
-        <motion.div
-          initial={{ y: 50, opacity: 0 }}
-          animate={{ y: 0, opacity: 1 }}
-          transition={{ delay: 0, duration: 0.8, ease: 'easeOut' }}
-          className="space-y-6"
-        >
-          {/* Static title */}
-          <motion.div 
-            ref={mergedTitleRef}
-            className="mb-6 relative z-10"
-          >
-            <div className="flex items-center gap-2 md:gap-4 flex-wrap justify-center">
-              <motion.span 
-                ref={kshitijTextRef}
-                className="text-6xl md:text-7xl lg:text-8xl font-black text-transparent bg-clip-text bg-gradient-to-r from-red-400 via-red-500 to-red-600 whitespace-nowrap"
-                style={{
-                  textShadow: '0 0 30px rgba(220, 38, 38, 0.4)',
-                  filter: 'drop-shadow(0 0 20px rgba(220, 38, 38, 0.3))',
-                }}
-              >
-                KSHITIJ
-              </motion.span>
-              <motion.div
-                className="h-12 md:h-16 lg:h-20 w-px bg-gradient-to-b from-transparent via-red-500/50 to-transparent"
-                initial={{ scaleY: 0, opacity: 0 }}
-                animate={{ scaleY: 1, opacity: 1 }}
-                transition={{ delay: 0.1, duration: 0.5 }}
-              />
-              <motion.span 
-                className="text-4xl md:text-5xl lg:text-6xl font-black text-white/90"
-                style={{
-                  textShadow: '0 0 20px rgba(255, 255, 255, 0.2)',
-                }}
-              >
-                2026
-              </motion.span>
-            </div>
-          </motion.div>
-          <p className="text-subtitle text-white/80 italic mb-8" style={{ textShadow: 'none' }}>
-            think. create. enjoy.
-          </p>
-          <p className="text-base md:text-lg text-white/60 mt-8" style={{ textShadow: 'none' }}>
-            ASIA&apos;s Largest Techno-Management Symposium
-          </p>
-        </motion.div>
-      </div>
+      {/* Subtle backdrop for better particle visibility */}
+      <div className="absolute inset-0 bg-black/20 z-[5]" />
 
       {/* Scroll indicator */}
       <motion.div

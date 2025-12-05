@@ -99,6 +99,7 @@ export default function DomeGallery({
   imageBorderRadius = '30px',
   openedImageBorderRadius = '30px',
   grayscale = true,
+  minRadius,
   onImageClick
 }: DomeGalleryProps) {
   const rootRef = useRef<HTMLDivElement>(null);
@@ -150,6 +151,35 @@ export default function DomeGallery({
     const root = rootRef.current;
     if (!root) return;
     
+    // Initial setup
+    const setupRadius = () => {
+      const rect = root.getBoundingClientRect();
+      const w = Math.max(1, rect.width);
+      const h = Math.max(1, rect.height);
+      const minDim = Math.min(w, h);
+      const aspect = w / h;
+      const basis = aspect >= 1.3 ? w : minDim;
+      // Calculate radius based on fit, but don't force minRadius if it makes it too large
+      let radius = basis * fit;
+      // Only apply minRadius if the calculated radius is smaller than minRadius
+      if (minRadius && radius < minRadius) {
+        radius = minRadius;
+      }
+
+      root.style.setProperty('--radius', `${radius}px`);
+      root.style.setProperty('--overlay-blur-color', overlayBlurColor);
+      root.style.setProperty('--tile-radius', imageBorderRadius);
+      root.style.setProperty('--enlarge-radius', openedImageBorderRadius);
+      root.style.setProperty('--image-filter', grayscale ? 'grayscale(1)' : 'none');
+      applyTransform(rotationRef.current.x, rotationRef.current.y);
+    };
+    
+    // Initial setup - try immediately, then retry with delay if needed
+    setupRadius();
+    const timeoutId = setTimeout(() => {
+      setupRadius();
+    }, 100);
+    
     const ro = new ResizeObserver(entries => {
       const cr = entries[0].contentRect;
       const w = Math.max(1, cr.width);
@@ -157,7 +187,12 @@ export default function DomeGallery({
       const minDim = Math.min(w, h);
       const aspect = w / h;
       const basis = aspect >= 1.3 ? w : minDim;
+      // Calculate radius based on fit, but don't force minRadius if it makes it too large
       let radius = basis * fit;
+      // Only apply minRadius if the calculated radius is smaller than minRadius
+      if (minRadius && radius < minRadius) {
+        radius = minRadius;
+      }
 
       root.style.setProperty('--radius', `${radius}px`);
       root.style.setProperty('--overlay-blur-color', overlayBlurColor);
@@ -168,8 +203,11 @@ export default function DomeGallery({
     });
 
     ro.observe(root);
-    return () => ro.disconnect();
-  }, [fit, overlayBlurColor, grayscale, imageBorderRadius, openedImageBorderRadius]);
+    return () => {
+      clearTimeout(timeoutId);
+      ro.disconnect();
+    };
+  }, [fit, overlayBlurColor, grayscale, imageBorderRadius, openedImageBorderRadius, minRadius, applyTransform]);
 
   const [isDragging, setIsDragging] = useState(false);
   const [dragStart, setDragStart] = useState<{ x: number; y: number } | null>(null);
@@ -374,10 +412,29 @@ export default function DomeGallery({
   };
 
   const [loadedImages, setLoadedImages] = useState<Set<string>>(new Set());
+  const [visibleItems, setVisibleItems] = useState<Set<number>>(new Set());
 
   const handleImageLoad = (src: string) => {
     setLoadedImages(prev => new Set(prev).add(src));
   };
+
+  // Preload first visible images (front of dome)
+  useEffect(() => {
+    if (items.length === 0) return;
+    
+    // Preload first 15-20 images that are likely visible
+    const preloadCount = Math.min(20, items.length);
+    const preloadImages = items.slice(0, preloadCount).map(item => item.src).filter(Boolean);
+    
+    preloadImages.forEach((src, index) => {
+      const img = new window.Image();
+      img.src = src;
+      // Set higher priority for first few images
+      if (index < 8) {
+        (img as any).fetchPriority = 'high';
+      }
+    });
+  }, [items]);
 
   // Scroll to rotate functionality
   useEffect(() => {
@@ -394,18 +451,24 @@ export default function DomeGallery({
     };
     
     const handleWheel = (e: WheelEvent) => {
-      // Don't rotate if currently dragging or not hovering
-      if (isDragging || draggingRef.current || !isHoveringRef.current) return;
+      // Always allow vertical scrolling - never prevent it
+      // Only handle horizontal scroll for rotation
+      if (isDragging || draggingRef.current || !isHoveringRef.current) {
+        // Allow normal page scrolling
+        return;
+      }
       
-      // Only rotate on horizontal scroll (touchpad left/right)
-      // Ignore vertical scroll to allow page scrolling
-      if (Math.abs(e.deltaX) > Math.abs(e.deltaY) && Math.abs(e.deltaX) > 1) {
+      // Only rotate on horizontal scroll (touchpad left/right swipe)
+      // Must be clearly horizontal (deltaX significantly larger than deltaY)
+      const isHorizontal = Math.abs(e.deltaX) > Math.abs(e.deltaY) * 2 && Math.abs(e.deltaX) > 5;
+      
+      if (isHorizontal) {
+        // Only prevent default for horizontal scroll
         e.preventDefault();
         e.stopPropagation();
-        e.stopImmediatePropagation();
         
-        const scrollSensitivity = 60; // Higher = less sensitive (smoother)
-        const scrollDelta = e.deltaX / scrollSensitivity; // Positive deltaX = scroll right = rotate right
+        const scrollSensitivity = 50; // Higher = less sensitive (smoother)
+        const scrollDelta = e.deltaX / scrollSensitivity;
         
         // Apply rotation to Y-axis (horizontal rotation)
         const nextY = wrapAngleSigned(rotationRef.current.y + scrollDelta);
@@ -415,6 +478,7 @@ export default function DomeGallery({
         };
         applyTransform(rotationRef.current.x, rotationRef.current.y);
       }
+      // If vertical scroll, do nothing - let it pass through to page scroll
     };
 
     mainElement.addEventListener('mouseenter', handleMouseEnter);
@@ -454,7 +518,11 @@ export default function DomeGallery({
         ['--overlay-blur-color']: overlayBlurColor,
         ['--tile-radius']: imageBorderRadius,
         ['--enlarge-radius']: openedImageBorderRadius,
-        ['--image-filter']: grayscale ? 'grayscale(1)' : 'none'
+        ['--image-filter']: grayscale ? 'grayscale(1)' : 'none',
+        width: '100%',
+        height: '100%',
+        position: 'relative',
+        display: 'block'
       } as React.CSSProperties}
     >
       <main 
@@ -502,13 +570,45 @@ export default function DomeGallery({
                     src={it.src} 
                     draggable={false} 
                     alt={it.alt}
-                    loading="lazy"
-                    onLoad={() => handleImageLoad(it.src)}
-                    className={`transition-all duration-500 ${
+                    loading={i < 20 ? "eager" : "lazy"}
+                    fetchPriority={i < 8 ? "high" : i < 20 ? "auto" : "low"}
+                    decoding="async"
+                    onLoad={(e) => {
+                      handleImageLoad(it.src);
+                      // Adapt tile size to image aspect ratio
+                      const img = e.currentTarget;
+                      const itemEl = img.closest('.item__image') as HTMLElement;
+                      if (itemEl && img.naturalWidth && img.naturalHeight) {
+                        const aspectRatio = img.naturalWidth / img.naturalHeight;
+                        // Adjust tile dimensions based on aspect ratio
+                        if (aspectRatio > 1.3) {
+                          // Wide/landscape - make wider
+                          itemEl.style.width = 'calc(100% + 15px)';
+                          itemEl.style.height = 'auto';
+                        } else if (aspectRatio < 0.8) {
+                          // Tall/portrait - make taller
+                          itemEl.style.width = 'auto';
+                          itemEl.style.height = 'calc(100% + 15px)';
+                        } else {
+                          // Square - keep default
+                          itemEl.style.width = '100%';
+                          itemEl.style.height = '100%';
+                        }
+                      }
+                    }}
+                    className={`transition-all duration-300 ${
                       loadedImages.has(it.src) 
                         ? 'opacity-100 scale-100' 
                         : 'opacity-0 scale-95'
-                    } group-hover:scale-105 group-hover:brightness-110`}
+                    } group-hover:scale-105`}
+                    decoding="async"
+                    fetchPriority={i < 8 ? "high" : i < 20 ? "auto" : "low"}
+                    style={{ 
+                      willChange: loadedImages.has(it.src) ? 'auto' : 'transform, opacity',
+                      transform: 'translateZ(0)',
+                      backfaceVisibility: 'hidden',
+                      imageRendering: 'auto',
+                    }}
                   />
                   
                   {/* Hover overlay */}

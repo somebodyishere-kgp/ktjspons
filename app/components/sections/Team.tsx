@@ -2,12 +2,13 @@
 
 import { motion } from 'framer-motion';
 import TiltedCard from '@/components/ui/TiltedCard';
+import Image from 'next/image';
 
 const teamMembers = [
   {
     name: 'John Doe',
     role: 'Tech Lead',
-    image: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=400&q=80',
+    image: '/photos/DSC00512.JPG',
     description: 'Leading innovation and technical excellence',
     social: {
       linkedin: 'https://linkedin.com/in/johndoe',
@@ -17,7 +18,7 @@ const teamMembers = [
   {
     name: 'Jane Smith',
     role: 'Design Director',
-    image: 'https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=400&q=80',
+    image: '/photos/DSC00512.JPG',
     description: 'Crafting exceptional user experiences',
     social: {
       linkedin: 'https://linkedin.com/in/janesmith',
@@ -27,7 +28,7 @@ const teamMembers = [
   {
     name: 'Mike Johnson',
     role: 'Event Coordinator',
-    image: 'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=400&q=80',
+    image: '/photos/DSC00518.JPG',
     description: 'Organizing world-class events',
     social: {
       linkedin: 'https://linkedin.com/in/mikejohnson',
@@ -37,7 +38,7 @@ const teamMembers = [
   {
     name: 'Sarah Williams',
     role: 'Marketing Head',
-    image: 'https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=400&q=80',
+    image: '/photos/DSC00530.JPG',
     description: 'Building brand presence and engagement',
     social: {
       linkedin: 'https://linkedin.com/in/sarahwilliams',

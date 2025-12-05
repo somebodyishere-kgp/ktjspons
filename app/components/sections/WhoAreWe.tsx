@@ -10,14 +10,14 @@ export default function WhoAreWe() {
   ];
 
   const timeline = [
-    { year: 1951, event: 'IIT Kharagpur Founded' },
-    { year: 2010, event: 'Digital Transformation' },
-    { year: 2020, event: '19K+ Followers Milestone' },
-    { year: 2026, event: '75 Years of Excellence' },
+    { year: 1951, event: 'IIT Kharagpur Founded - First IIT in Independent India' },
+    { year: 2004, event: 'Kshitij Inception - Techno-Management Symposium Begins' },
+    { year: 2025, event: 'Unmatched Response - 12M+ Website Hits' },
+    { year: 2026, event: 'Platinum Jubilee - 75 Years of Excellence' },
   ];
 
   return (
-    <section id="who-are-we" className="relative min-h-screen py-32 px-6 md:px-8">
+    <section id="who-are-we" className="relative min-h-screen py-16 sm:py-24 md:py-32 px-4 sm:px-6 md:px-8">
       <div className="absolute inset-0 bg-black/20" />
       <div className="relative z-10 max-w-7xl mx-auto">
         
@@ -29,12 +29,16 @@ export default function WhoAreWe() {
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
+              viewport={{ once: true, margin: '-100px' }}
               transition={{ duration: 0.6 }}
               className="space-y-8"
+              style={{
+                transform: 'translateZ(0)',
+                willChange: 'auto',
+              }}
             >
               <motion.h2 
-                className="text-5xl md:text-7xl font-bold text-white leading-tight"
+                className="text-3xl sm:text-4xl md:text-5xl lg:text-7xl font-bold text-white leading-tight"
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
                 transition={{ duration: 0.8 }}
@@ -47,7 +51,7 @@ export default function WhoAreWe() {
               </motion.h2>
               
               <motion.p 
-                className="text-xl md:text-2xl text-white/80 leading-relaxed"
+                className="text-lg sm:text-xl md:text-2xl text-white/80 leading-relaxed"
                 initial={{ opacity: 0, x: -10 }}
                 animate={{ opacity: 1, x: 0 }}
                 transition={{ delay: 0.3, duration: 0.6 }}
@@ -107,10 +111,13 @@ export default function WhoAreWe() {
               className="space-y-6"
             >
               <p className="text-lg leading-relaxed text-white/90">
-                KSHITIJ is the annual techno-management festival of IIT Kharagpur, celebrated for fostering innovation, creativity, and technical excellence.
+                In the quiet before dawn, when the sky blushes with anticipation, there lies a magical meeting point: <span className="text-red-400 font-semibold">The Horizon</span>. It&apos;s where Earth and heavens converge, a place of infinite promise. And in this cosmic dance, we find Kshitij.
               </p>
               <p className="text-lg leading-relaxed text-white/90">
-                Our platform connects students, industry leaders, and innovators to create transformative experiences that shape the future of technology.
+                Kshitij is IIT Kharagpur&apos;s Techno-management symposium organized by the student body. Ever since its inception in the year 2004, Kshitij has grown tremendously, providing a platform for young and brilliant minds to exhibit their skills in both technical as well as managerial domains.
+              </p>
+              <p className="text-lg leading-relaxed text-white/90">
+                As IIT Kharagpur approaches its historic <span className="text-red-400 font-semibold">Platinum Jubilee in 2026</span>, marking 75 years of academic excellence, pathbreaking innovation, and transformative leadership, Kshitij 2026 will serve as a confluence of tradition and transformation, where the institute&apos;s illustrious past will inspire future trailblazers.
               </p>
             </motion.div>
 
@@ -189,7 +196,7 @@ export default function WhoAreWe() {
                   </span>
                 </div>
                 <p className="text-white/60 text-sm group-hover:text-white/80 transition-colors">
-                  Join us in shaping the future of technology and innovation.
+                  Kshitij is the Horizon, where dreams stretch their wings and take flight. Here, geeks become stardust, and freaks find grace, as innovation unfurls in this boundless space. Together, let us honour the past, engage with the present, and shape the horizon of tomorrow!
                 </p>
               </div>
             </motion.div>

@@ -7,10 +7,10 @@ const benefits = [
   {
     number: 70000,
     suffix: '+',
-    title: 'Annual Student Reach',
+    title: 'Annual Student Participation',
     description: 'Students engaged across all events',
-    comparison: '+35% vs industry average',
-    context: ['1,200+ institutions', '35+ colleges annually', '9 months active'],
+    comparison: 'Unmatched participation nationwide',
+    context: ['70,000+ annual participation', 'Preliminary rounds 4 months prior', 'Huge international participation'],
     color: 'from-red-500/20 to-red-600/20',
     borderColor: 'border-red-500/30',
   },
@@ -18,8 +18,8 @@ const benefits = [
     number: 1200,
     suffix: '+',
     title: 'Campus Ambassador Network',
-    description: 'Ambassadors publicizing nationwide',
-    comparison: 'Largest in India',
+    description: 'Ambassadors publicizing the fest in their region throughout the country',
+    comparison: 'Strong network across India',
     context: ['Nationwide reach', '1200+ active members', 'Year-round activation'],
     color: 'from-red-600/20 to-red-700/20',
     borderColor: 'border-red-600/30',
@@ -28,29 +28,29 @@ const benefits = [
     number: 12,
     suffix: 'M+',
     title: 'Website Traffic',
-    description: 'Digital impressions for KSHITIJ 2025',
-    comparison: '+200% YoY growth',
-    context: ['12M hits', '350+ event pages', '6 months indexed'],
+    description: 'Website hits for KSHITIJ 2025',
+    comparison: 'Massive digital reach',
+    context: ['12M+ hits', '350+ event pages', 'Online events from September'],
     color: 'from-red-700/20 to-red-800/20',
     borderColor: 'border-red-700/30',
-  },
-  {
-    number: 500,
-    suffix: '+',
-    title: 'Workshops & Events',
-    description: 'Pre-fest engagement activities',
-    comparison: 'Year-round programming',
-    context: ['Pre-fest workshops', 'During-fest sessions', 'Post-fest follow-up'],
-    color: 'from-red-800/20 to-red-900/20',
-    borderColor: 'border-red-800/30',
   },
   {
     number: 1200,
     suffix: '+',
     title: 'Educational Institutions',
-    description: 'Reached through publicity campaigns',
-    comparison: '95% coverage in tier-1 cities',
-    context: ['Oct-Nov campaigns', 'Nationwide distribution', 'Multi-language materials'],
+    description: 'Reached through publicity campaigns twice a year',
+    comparison: 'Extensive nationwide coverage',
+    context: ['Oct-Nov campaigns', 'Personal visits twice yearly', 'Posters, T-shirts, souvenirs distributed'],
+    color: 'from-red-800/20 to-red-900/20',
+    borderColor: 'border-red-800/30',
+  },
+  {
+    number: 500,
+    suffix: '+',
+    title: 'Workshops & Events',
+    description: 'Pre-fest and during-fest engagement activities',
+    comparison: 'Year-round programming',
+    context: ['Workshops prior and during fest', 'Varied technical and managerial topics', 'Intellectual rewarding experiences'],
     color: 'from-red-900/20 to-black/20',
     borderColor: 'border-red-900/30',
   },
@@ -58,7 +58,7 @@ const benefits = [
     number: 6,
     suffix: ' Months',
     title: 'Extended Visibility',
-    description: 'Online events starting September',
+    description: 'Online events starting September onwards',
     comparison: 'Longest engagement period',
     context: ['Sept - Feb timeline', 'Continuous presence', 'Multi-platform reach'],
     color: 'from-black/20 to-red-900/20',
@@ -286,12 +286,12 @@ export default function WhyAssociate() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.8 }}
-          className="text-center py-12 md:py-16 px-6"
+          className="text-center py-8 sm:py-12 md:py-16 px-4 sm:px-6"
         >
-          <h2 className="text-4xl md:text-6xl lg:text-7xl font-bold text-white mb-6">
+          <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-bold text-white mb-4 sm:mb-6 px-4">
             WHY ASSOCIATE
           </h2>
-          <p className="text-lg md:text-xl text-white/60 max-w-3xl mx-auto">
+          <p className="text-base sm:text-lg md:text-xl text-white/60 max-w-3xl mx-auto px-4">
             Six data-driven reasons to partner with India&apos;s premier techno-management festival
           </p>
         </motion.div>
@@ -299,7 +299,7 @@ export default function WhyAssociate() {
         {/* 3x2 Grid Layout */}
         <div 
           ref={containerRef}
-          className="relative w-full max-w-7xl mx-auto px-6 pb-16"
+          className="relative w-full max-w-7xl mx-auto px-4 sm:px-6 pb-12 sm:pb-16"
         >
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
             {benefits.map((benefit, index) => (

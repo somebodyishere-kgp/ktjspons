@@ -2,6 +2,7 @@
 
 import { motion, AnimatePresence } from 'framer-motion';
 import { useEffect, useState } from 'react';
+import NextImage from 'next/image';
 
 interface FullscreenImageModalProps {
   imageSrc: string;
@@ -19,7 +20,7 @@ export function FullscreenImageModal({ imageSrc, alt, isOpen, onClose, initialRe
     if (isOpen) {
       setIsImageLoaded(false);
       // Preload image to get dimensions
-      const img = new Image();
+      const img = new window.Image();
       img.onload = () => {
         const maxWidth = window.innerWidth * 0.85;
         const maxHeight = window.innerHeight * 0.85;
@@ -149,19 +150,22 @@ export function FullscreenImageModal({ imageSrc, alt, isOpen, onClose, initialRe
                 ease: [0.25, 0.46, 0.45, 0.94],
               }}
               style={{
-                width: finalDimensions.width || 'auto',
-                height: finalDimensions.height || 'auto',
+                width: finalDimensions.width || '90vw',
+                height: finalDimensions.height || '90vh',
+                maxWidth: '100vw',
+                maxHeight: '100vh',
               }}
             >
-              <img
+              <NextImage
                 src={imageSrc}
                 alt={alt}
-                className="max-w-full max-h-full object-contain rounded-lg shadow-2xl"
-                draggable={false}
+                fill
+                sizes="100vw"
+                className="object-contain rounded-lg shadow-2xl"
+                quality={90}
+                priority
                 style={{
                   display: isImageLoaded ? 'block' : 'none',
-                  width: '100%',
-                  height: '100%',
                 }}
               />
               

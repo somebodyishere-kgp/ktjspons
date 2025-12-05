@@ -126,22 +126,42 @@ export default function SponsorUs() {
 
     setIsSubmitting(true);
 
-    // Simulate API call
-    await new Promise(resolve => setTimeout(resolve, 2000));
+    try {
+      const response = await fetch('/api/contact', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(formData),
+      });
 
-    setIsSubmitting(false);
-    setIsSuccess(true);
-    setFormData({ email: '', phone: '', company: '', message: '' });
-    
-    // Reset success message after 5 seconds
-    setTimeout(() => setIsSuccess(false), 5000);
+      const data = await response.json();
+
+      if (!response.ok) {
+        throw new Error(data.error || 'Failed to submit form');
+      }
+
+      setIsSubmitting(false);
+      setIsSuccess(true);
+      setFormData({ email: '', phone: '', company: '', message: '' });
+      
+      // Reset success message after 5 seconds
+      setTimeout(() => setIsSuccess(false), 5000);
+    } catch (error) {
+      console.error('Error submitting form:', error);
+      setIsSubmitting(false);
+      setErrors({ 
+        ...errors, 
+        message: 'Failed to send message. Please try again later.' 
+      });
+    }
   };
 
   const messageLength = formData.message.length;
   const maxMessageLength = 500;
 
   return (
-    <section id="sponsor-us" className="relative min-h-screen py-32 px-4 sm:px-8">
+    <section id="sponsor-us" className="relative min-h-screen py-16 sm:py-24 md:py-32 px-4 sm:px-6 md:px-8">
       <div className="absolute inset-0 bg-black/50" />
       
       <div className="relative z-10 max-w-7xl mx-auto">

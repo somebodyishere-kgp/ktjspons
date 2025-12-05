@@ -1,20 +1,34 @@
 'use client';
 
-import { useEffect, useState, useCallback } from 'react';
+import { useEffect, useState, useCallback, memo } from 'react';
 import { motion, useScroll } from 'framer-motion';
 
-export default function ScrollProgress() {
+const ScrollProgress = memo(function ScrollProgress() {
   const [isVisible, setIsVisible] = useState(false);
   const { scrollYProgress } = useScroll();
 
+  // Debounce scroll visibility check
   const handleScroll = useCallback(() => {
-    setIsVisible(window.scrollY > 100);
+    const scrollY = window.scrollY;
+    setIsVisible(scrollY > 100);
   }, []);
 
   useEffect(() => {
-    // Use passive listener for better performance
-    window.addEventListener('scroll', handleScroll, { passive: true });
-    return () => window.removeEventListener('scroll', handleScroll);
+    // Throttle scroll events
+    let ticking = false;
+    const throttledHandleScroll = () => {
+      if (!ticking) {
+        window.requestAnimationFrame(() => {
+          handleScroll();
+          ticking = false;
+        });
+        ticking = true;
+      }
+    };
+
+    window.addEventListener('scroll', throttledHandleScroll, { passive: true });
+    handleScroll(); // Initial check
+    return () => window.removeEventListener('scroll', throttledHandleScroll);
   }, [handleScroll]);
 
   return (
@@ -25,6 +39,9 @@ export default function ScrollProgress() {
         style={{ 
           scaleX: scrollYProgress,
           willChange: 'transform',
+          transform: 'translateZ(0)',
+          contain: 'layout style paint',
+          backfaceVisibility: 'hidden',
         }}
       />
 
@@ -55,4 +72,8 @@ export default function ScrollProgress() {
       )}
     </>
   );
-}
+});
+
+ScrollProgress.displayName = 'ScrollProgress';
+
+export default ScrollProgress;

@@ -3,6 +3,7 @@
 import type { SpringOptions } from 'framer-motion';
 import { useRef, useState } from 'react';
 import { motion, useMotionValue, useSpring } from 'framer-motion';
+import Image from 'next/image';
 
 interface TiltedCardProps {
   imageSrc: React.ComponentProps<'img'>['src'];
@@ -120,16 +121,23 @@ export default function TiltedCard({
           transformStyle: 'preserve-3d'
         }}
       >
-        <motion.img
-          src={imageSrc}
-          alt={altText}
-          className="absolute top-0 left-0 object-cover rounded-2xl will-change-transform"
+        <motion.div
+          className="absolute top-0 left-0 rounded-2xl will-change-transform overflow-hidden"
           style={{
             width: imageWidth,
             height: imageHeight,
             transform: 'translateZ(0)'
           }}
-        />
+        >
+          <Image
+            src={imageSrc}
+            alt={altText}
+            fill
+            sizes={`${imageWidth}`}
+            className="object-cover"
+            quality={80}
+          />
+        </motion.div>
 
         {displayOverlayContent && overlayContent && (
           <motion.div 

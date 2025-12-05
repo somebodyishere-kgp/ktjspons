@@ -209,22 +209,20 @@ svg {
   filter: none !important;
 }
 
-/* Reduce repaints on scroll */
+/* Reduce repaints on scroll - optimized */
 section {
   contain: layout style paint;
+  isolation: isolate; /* Create new stacking context */
 }
 
-/* Optimize backdrop filters */
-[class*="backdrop-blur"] {
+/* Optimize backdrop filters - only when needed */
+[class*="backdrop-blur"]:hover,
+[class*="backdrop-blur"]:focus {
   will-change: filter;
 }
 
-/* Optimize transforms */
-[style*="transform"],
-[style*="scale"],
-[style*="opacity"] {
-  will-change: transform, opacity;
-}
+/* Optimize transforms - only when actively animating */
+/* Removed global will-change to reduce GPU usage and flickering */
 
 /* Content containment for scroll sections */
 .overflow-hidden {
@@ -235,4 +233,46 @@ section {
 video {
   object-fit: cover;
   object-position: center;
+}
+
+/* Glimpses Gallery Optimizations */
+#glimpses {
+  scroll-behavior: smooth;
+  overscroll-behavior: contain;
+}
+
+#glimpses .grid {
+  grid-auto-rows: min-content;
+  align-items: start;
+}
+
+/* Smooth image loading and hover effects - optimized */
+#glimpses img {
+  transform: translateZ(0);
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+  image-rendering: -webkit-optimize-contrast;
+  /* Removed will-change to reduce GPU usage - only set on hover */
+}
+
+#glimpses .group:hover img {
+  /* Only use will-change when actually hovering */
+  will-change: transform;
+}
+
+/* Prevent scroll locking - allow natural scroll flow */
+#glimpses * {
+  overscroll-behavior-y: contain;
+}
+
+/* Optimize grid items */
+#glimpses [class*="motion"] {
+  contain: layout style paint;
+  transform: translateZ(0);
+}
+
+/* Ensure gallery doesn't block scroll */
+#glimpses section {
+  pointer-events: auto;
+  touch-action: pan-y;
 }

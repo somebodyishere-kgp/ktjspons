@@ -2,169 +2,194 @@
 
 import { motion, useScroll, useTransform, AnimatePresence } from 'framer-motion';
 import { useRef, useState, useEffect } from 'react';
+import Image from 'next/image';
+
+// Event poster images from Events Poster_KTJ_25 folder
+const eventPosterFiles = [
+  'relic hunter.jpeg',      // Genesis (Relic Hunter)
+  'tech quiz.jpeg',         // Quizzard (Tech Quiz)
+  'bplan.jpeg',             // B-Plan
+  'overnitee.jpeg',         // Overnite
+  'source code.jpeg',       // Code Conclave
+  'robowaar.jpeg',          // RoboWars
+  'sand rover.jpeg',        // Mechanize (Sand Rover)
+  'anadix.jpeg',            // Anadigix
+  'green ai.jpeg',          // Biocraft
+  'nlp challenge.jpeg',     // Data Analytics
+  'mascotmakingcompetition.jpeg', // CAD Challenge
+  'enigma-biz quiz.jpeg',   // Workshops
+  'zerotrusthackathon.jpeg', // Crypto Quest
+  'droid-blitz.jpeg',       // Startup Pitch
+  'Racing-Championship.jpeg', // Racing Championship
+  'maths olympiad.jpeg',    // Guest Lectures
+  'line follower.jpeg',     // Expo
+  'ai hackathon.jpeg',      // AI Realm
+  'laws of motion.jpeg',    // Kascades
+  'quantquest.jpeg',        // CodeForces
+];
 
 const events = [
   { 
-    name: 'Kascades', 
-    category: 'Technical', 
-    icon: '🎯',
-    image: 'https://images.unsplash.com/photo-1518770660439-4636190af475?w=800',
-    description: 'A series of challenging technical competitions spanning multiple domains of engineering and innovation.',
+    name: 'Genesis', 
+    category: 'Online Events', 
+    icon: '🔍',
+    image: `/Events Poster_KTJ_25/${eventPosterFiles[0]}`,
+    description: 'Online treasure hunt and stock market simulation events starting 4 months before the fest, providing extended branding and visibility.',
     details: [
-      'Multi-domain engineering challenges',
-      'Competitive prizes and recognition',
-      'Industry expert judges',
-      'Networking opportunities'
+      'Relic Hunter - Online treasure hunt with cryptic clues',
+      'Quant Quest - Stock market simulation game',
+      'Eureka - Scientific advances showcase',
+      'Extended branding for 4 months'
     ]
   },
   { 
-    name: 'AI Realm', 
-    category: 'AI/ML', 
-    icon: '🤖',
-    image: 'https://images.unsplash.com/photo-1677442136019-21780ecad995?w=800',
-    description: 'Explore the frontiers of artificial intelligence and machine learning through cutting-edge competitions.',
+    name: 'Quizzard', 
+    category: 'Quiz Events', 
+    icon: '🧠',
+    image: `/Events Poster_KTJ_25/${eventPosterFiles[1]}`,
+    description: 'Test your knowledge with Math Challenge (5000+ participation), Bix Quiz for managerial acumen, and Tech Quiz in our largest auditorium.',
     details: [
-      'ML model development contests',
-      'Deep learning workshops',
-      'AI ethics discussions',
-      'Research paper presentations'
+      'Math Challenge - One of the most anticipated events',
+      'Bix Quiz - Tests managerial acumen',
+      'Tech Quiz - Conducted in largest auditorium',
+      '5000+ participation nationwide'
     ]
   },
   { 
-    name: 'Robotics', 
-    category: 'Hardware', 
-    icon: '⚙️',
-    image: 'https://images.unsplash.com/photo-1485827404703-89b55fcc595e?w=800',
-    description: 'Build, design, and compete with autonomous robots in various challenging scenarios.',
+    name: 'B-Plan', 
+    category: 'Business', 
+    icon: '💼',
+    image: `/Events Poster_KTJ_25/${eventPosterFiles[2]}`,
+    description: 'IIT Kharagpur Business Plan competition - a platform for creative geniuses with participation from major management and engineering colleges.',
     details: [
-      'Autonomous navigation challenges',
-      'Robot design competitions',
-      'Real-time problem solving',
-      'Hardware and software integration'
+      'Platform for creative business ideas',
+      'Mentorship from established industry names',
+      'Participation from top colleges',
+      'Ideal branding among future thinkers'
     ]
   },
   { 
-    name: 'CodeForces', 
+    name: 'Overnite', 
+    category: 'Hackathon', 
+    icon: '🌙',
+    image: `/Events Poster_KTJ_25/${eventPosterFiles[3]}`,
+    description: 'A night-long hacking competition with preliminary rounds across the country and finals at IIT Kharagpur - one of the largest hackathons for students.',
+    details: [
+      'Night-long hacking competition',
+      'Reverse coding challenges',
+      'Preliminary rounds nationwide',
+      'Finals at IIT Kharagpur'
+    ]
+  },
+  { 
+    name: 'Code Conclave', 
     category: 'Programming', 
     icon: '💻',
-    image: 'https://images.unsplash.com/photo-1526374965328-7f61d4dc18c5?w=800',
-    description: 'Intense coding competitions featuring algorithmic challenges for competitive programmers.',
+    image: `/Events Poster_KTJ_25/${eventPosterFiles[4]}`,
+    description: 'Coding events including Code-o-Soccer (strategic bot programming), Code-o-Shuffle (team coordination), and Convo-bot (intelligent chatbot development).',
     details: [
-      'Algorithmic problem solving',
-      'Time-constrained challenges',
-      'Leaderboard rankings',
-      'Industry recruiter presence'
+      'Code-o-Soccer - Strategic bot programming',
+      'Code-o-Shuffle - Team coordination challenges',
+      'Convo-bot - Intelligent chatbot development',
+      'Real-world business use cases'
     ]
   },
   { 
-    name: 'Hackathon', 
-    category: 'Development', 
-    icon: '🔥',
-    image: 'https://images.unsplash.com/photo-1531746790731-6c087fecd65a?w=800',
-    description: '24-hour innovation sprint where teams build innovative solutions to real-world problems.',
+    name: 'RoboWars', 
+    category: 'Robotics', 
+    icon: '⚔️',
+    image: `/Events Poster_KTJ_25/${eventPosterFiles[5]}`,
+    description: 'Combat robots from across the country battle it out! Young builders construct fighting machines - a humongous branding avenue.',
     details: [
-      '24-hour coding marathon',
-      'Team-based development',
-      'Mentorship support available',
-      'Cash prizes and internships'
+      'Combat robot competition',
+      'Robots from across the country',
+      'Metal, power tools, remote control',
+      'Ultimate fighting machines'
+    ]
+  },
+  { 
+    name: 'Mechanize', 
+    category: 'Mechanical', 
+    icon: '⚙️',
+    image: `/Events Poster_KTJ_25/${eventPosterFiles[6]}`,
+    description: 'Mechanical engineering events including Arm of Achelous (hydraulics), Sand Rover (rough terrain), and Night Shift (10-hour design challenge).',
+    details: [
+      'Arm of Achelous - Hydraulic arm design',
+      'Sand Rover - Rough terrain robot',
+      'Night Shift - 10-hour design challenge',
+      'Certified by IMechE'
+    ]
+  },
+  { 
+    name: 'Anadigix', 
+    category: 'Electronics', 
+    icon: '⚡',
+    image: `/Events Poster_KTJ_25/${eventPosterFiles[7]}`,
+    description: 'The heaven for budding electronics engineers - extensive circuit knowledge required with hardware implementation in finals.',
+    details: [
+      'Extensive circuit knowledge',
+      'Three rounds of competition',
+      'Hardware implementation in finals',
+      'Best Circuit Designer title'
+    ]
+  },
+  { 
+    name: 'Biocraft', 
+    category: 'Healthcare', 
+    icon: '❤️',
+    image: `/Events Poster_KTJ_25/${eventPosterFiles[8]}`,
+    description: 'Revolutionizing healthcare focusing on cardiac care through innovative solutions in transcatheter mitral valve replacement.',
+    details: [
+      'Focus on cardiac care innovation',
+      'Transcatheter mitral valve replacement',
+      'Revolutionize healthcare solutions',
+      'Make hearts beat stronger'
+    ]
+  },
+  { 
+    name: 'Data Analytics', 
+    category: 'Analytics', 
+    icon: '📊',
+    image: `/Events Poster_KTJ_25/${eventPosterFiles[9]}`,
+    description: 'Exclusive data analytics event conducted online with real-world problems and business situations - training and test sets provided.',
+    details: [
+      'Real-world business problems',
+      'Training and test sets provided',
+      'Online event on Kshitij website',
+      'Demonstrate DA knowledge'
+    ]
+  },
+  { 
+    name: 'CAD Challenge', 
+    category: 'Design', 
+    icon: '🎨',
+    image: `/Events Poster_KTJ_25/${eventPosterFiles[10]}`,
+    description: 'Computer-aided design event using industry-standard software like SolidWorks or Autodesk Inventor for innovative designs.',
+    details: [
+      'Mechanical design and prototyping',
+      'Industry-standard software',
+      'Innovative design solutions',
+      'Improve efficiency of human life'
     ]
   },
   { 
     name: 'Workshops', 
     category: 'Learning', 
     icon: '📚',
-    image: 'https://images.unsplash.com/photo-1516321318423-f06f85e504b3?w=800',
-    description: 'Hands-on sessions led by industry experts covering emerging technologies and skills.',
+    image: `/Events Poster_KTJ_25/${eventPosterFiles[11]}`,
+    description: 'Bridge the divide between thinking and doing. Workshops on Graphics Processing Units, AI & HPC, Digital Forensics, Machine Learning, Cloud Computing, and more.',
     details: [
-      'Interactive learning sessions',
-      'Industry expert instructors',
-      'Practical hands-on projects',
-      'Certificate of participation'
-    ]
-  },
-  { 
-    name: 'Guest Lectures', 
-    category: 'Knowledge', 
-    icon: '🎓',
-    image: 'https://images.unsplash.com/photo-1505373877841-8d25f7d46678?w=800',
-    description: 'Inspiring talks by renowned industry leaders, researchers, and visionaries.',
-    details: [
-      'Keynote presentations',
-      'Q&A sessions with experts',
-      'Career guidance',
-      'Industry insights sharing'
-    ]
-  },
-  { 
-    name: 'Expo', 
-    category: 'Exhibition', 
-    icon: '🏆',
-    image: 'https://images.unsplash.com/photo-1505373877841-8d25f7d46678?w=800',
-    description: 'Grand showcase of innovation, technology, and student projects from across the globe.',
-    details: [
-      'Project demonstrations',
-      'Innovation showcases',
-      'Industry exhibitions',
-      'Startup pitches and demos'
-    ]
-  },
-  { 
-    name: 'Quizzard', 
-    category: 'Tech Quiz', 
-    icon: '🧠',
-    image: 'https://images.unsplash.com/photo-1451187580459-43490279c0fa?w=800',
-    description: 'Test your knowledge in technical quizzes covering various domains of engineering and science.',
-    details: [
-      'Technical knowledge tests',
-      'Multiple difficulty levels',
-      'Team and individual rounds',
-      'Scholarships and rewards'
-    ]
-  },
-  { 
-    name: 'Business Case', 
-    category: 'Management', 
-    icon: '💼',
-    image: 'https://images.unsplash.com/photo-1521791136064-7986c2920216?w=800',
-    description: 'Analyze real-world business scenarios and present strategic solutions to industry experts.',
-    details: [
-      'Real business case studies',
-      'Strategic problem solving',
-      'Presentation skills development',
-      'Corporate judges panel'
-    ]
-  },
-  { 
-    name: 'Circuit Design', 
-    category: 'Electronics', 
-    icon: '⚡',
-    image: 'https://images.unsplash.com/photo-1518770660439-4636190af475?w=800',
-    description: 'Design and implement innovative circuit solutions for complex engineering challenges.',
-    details: [
-      'Circuit simulation contests',
-      'PCB design challenges',
-      'Electronics prototyping',
-      'Hardware debugging sessions'
-    ]
-  },
-  { 
-    name: 'CAD Modeling', 
-    category: 'Design', 
-    icon: '🎨',
-    image: 'https://images.unsplash.com/photo-1561070791-2526d30994b5?w=800',
-    description: 'Create detailed 3D models and designs using advanced CAD software and techniques.',
-    details: [
-      '3D modeling competitions',
-      'CAD software training',
-      'Design innovation awards',
-      'Portfolio building workshops'
+      'Graphics Processing Units, AI & HPC',
+      'Digital Forensics, Patenting & Security',
+      'Machine Learning and Deep Learning',
+      'Cloud Computing, DevOps, Rocketry'
     ]
   },
   { 
     name: 'Crypto Quest', 
     category: 'Security', 
     icon: '🔐',
-    image: 'https://images.unsplash.com/photo-1558494949-ef010cbdcc31?w=800',
+    image: `/Events Poster_KTJ_25/${eventPosterFiles[12]}`,
     description: 'Navigate through cryptography challenges and cybersecurity scenarios.',
     details: [
       'Cryptography puzzles',
@@ -177,7 +202,7 @@ const events = [
     name: 'Startup Pitch', 
     category: 'Entrepreneurship', 
     icon: '🚀',
-    image: 'https://images.unsplash.com/photo-1559136555-9303baea8ebd?w=800',
+    image: `/Events Poster_KTJ_25/${eventPosterFiles[13]}`,
     description: 'Pitch your innovative ideas to industry veterans and investors for funding and mentorship.',
     details: [
       'Startup idea pitching',
@@ -190,13 +215,78 @@ const events = [
     name: 'Racing Championship', 
     category: 'Automotive', 
     icon: '🏎️',
-    image: 'https://images.unsplash.com/photo-1542744173-8e7e53415bb0?w=800',
+    image: `/Events Poster_KTJ_25/${eventPosterFiles[14]}`,
     description: 'Build high-performance racing vehicles and compete in speed and endurance challenges.',
     details: [
       'Vehicle design and build',
       'Racing competitions',
       'Performance testing',
       'Engineering excellence awards'
+    ]
+  },
+  { 
+    name: 'Guest Lectures', 
+    category: 'Knowledge', 
+    icon: '🎓',
+    image: `/Events Poster_KTJ_25/${eventPosterFiles[15]}`,
+    description: 'Learn from industry leaders and academic experts through engaging talks and interactive sessions.',
+    details: [
+      'Industry expert insights',
+      'Academic excellence talks',
+      'Interactive Q&A sessions',
+      'Networking opportunities'
+    ]
+  },
+  { 
+    name: 'Expo', 
+    category: 'Exhibition', 
+    icon: '🏛️',
+    image: `/Events Poster_KTJ_25/${eventPosterFiles[16]}`,
+    description: 'Showcase of innovative projects, technologies, and research from students and industry partners.',
+    details: [
+      'Student project displays',
+      'Industry technology showcases',
+      'Interactive demonstrations',
+      'Innovation gallery'
+    ]
+  },
+  { 
+    name: 'AI Realm', 
+    category: 'AI/ML', 
+    icon: '🤖',
+    image: `/Events Poster_KTJ_25/${eventPosterFiles[17]}`,
+    description: 'Explore the frontiers of artificial intelligence and machine learning through competitions and showcases.',
+    details: [
+      'AI/ML competitions',
+      'Deep learning challenges',
+      'Neural network showcases',
+      'Future of AI discussions'
+    ]
+  },
+  { 
+    name: 'Kascades', 
+    category: 'Technical', 
+    icon: '⚡',
+    image: `/Events Poster_KTJ_25/${eventPosterFiles[18]}`,
+    description: 'Premier technical event featuring innovative engineering solutions and cutting-edge technology demonstrations.',
+    details: [
+      'Technical innovation showcase',
+      'Engineering excellence',
+      'Cutting-edge technology',
+      'Industry partnerships'
+    ]
+  },
+  { 
+    name: 'CodeForces', 
+    category: 'Programming', 
+    icon: '💻',
+    image: `/Events Poster_KTJ_25/${eventPosterFiles[19]}`,
+    description: 'Competitive programming contest featuring algorithmic challenges and coding battles.',
+    details: [
+      'Algorithmic challenges',
+      'Competitive programming',
+      'Real-time coding battles',
+      'Problem-solving excellence'
     ]
   },
 ];
@@ -206,19 +296,49 @@ export default function FlagshipEvents() {
   const scrollContainerRef = useRef<HTMLDivElement>(null);
   const [hoveredCard, setHoveredCard] = useState<number | null>(null);
   const [selectedEvent, setSelectedEvent] = useState<typeof events[0] | null>(null);
+  const [isMobile, setIsMobile] = useState(false);
   const { scrollYProgress } = useScroll({
     target: sectionRef,
-    offset: ["start start", "end end"]
+    offset: ["start start", "end end"],
+    layoutEffect: false, // Use effect instead of layoutEffect for better performance
   });
 
-  const handleLearnMore = (event: typeof events[0], e: React.MouseEvent) => {
-    e.stopPropagation();
+  // Detect mobile
+  useEffect(() => {
+    const checkMobile = () => {
+      setIsMobile(window.innerWidth < 640);
+    };
+    checkMobile();
+    window.addEventListener('resize', checkMobile);
+    return () => window.removeEventListener('resize', checkMobile);
+  }, []);
+
+  const handleLearnMore = (event: typeof events[0], e?: React.MouseEvent) => {
+    if (e) {
+      e.stopPropagation();
+    }
     setSelectedEvent(event);
   };
 
   const closeOverlay = () => {
     setSelectedEvent(null);
   };
+
+  // Force section visibility - ensure component is always visible
+  useEffect(() => {
+    if (sectionRef.current) {
+      sectionRef.current.style.opacity = '1';
+      sectionRef.current.style.pointerEvents = 'auto';
+      sectionRef.current.style.visibility = 'visible';
+      
+      const parent = sectionRef.current.parentElement;
+      if (parent) {
+        parent.style.opacity = '1';
+        parent.style.pointerEvents = 'auto';
+        parent.style.visibility = 'visible';
+      }
+    }
+  }, []);
 
   // Prevent body scroll when overlay is open and focus scroll container
   useEffect(() => {
@@ -322,26 +442,143 @@ export default function FlagshipEvents() {
   }, [selectedEvent]);
 
   return (
-    <section id="events" ref={sectionRef} className="relative py-32 px-8" style={{ minHeight: '200vh', zIndex: 1 }}>
-      <div className="absolute inset-0 bg-black/50" style={{ zIndex: 0 }} />
+    <section 
+      id="events" 
+      ref={sectionRef} 
+      className="relative py-16 sm:py-24 md:py-32 px-4 sm:px-6 md:px-8 overflow-hidden" 
+      style={{ 
+        minHeight: '200vh', 
+        zIndex: 1,
+        opacity: 1,
+        visibility: 'visible',
+        pointerEvents: 'auto',
+        position: 'relative'
+      }}
+    >
+      {/* Animated Background Elements */}
+      <div className="absolute inset-0 overflow-hidden" style={{ zIndex: 0 }}>
+        {/* Gradient Mesh Background */}
+        <div className="absolute inset-0 bg-gradient-to-b from-black via-gray-950/50 to-black" />
+        
+        {/* Animated Grid Pattern */}
+        <div 
+          className="absolute inset-0 opacity-10"
+          style={{
+            backgroundImage: `
+              linear-gradient(rgba(220, 38, 38, 0.1) 1px, transparent 1px),
+              linear-gradient(90deg, rgba(220, 38, 38, 0.1) 1px, transparent 1px)
+            `,
+            backgroundSize: '50px 50px',
+            animation: 'gridMove 20s linear infinite'
+          }}
+        />
+        
+        {/* Floating Particles */}
+        {[...Array(6)].map((_, i) => (
+          <motion.div
+            key={i}
+            className="absolute w-2 h-2 bg-red-500/20 rounded-full blur-sm"
+            style={{
+              left: `${20 + i * 15}%`,
+              top: `${10 + i * 12}%`,
+            }}
+            animate={{
+              y: [0, -30, 0],
+              x: [0, 20, 0],
+              opacity: [0.2, 0.5, 0.2],
+              scale: [1, 1.5, 1],
+            }}
+            transition={{
+              duration: 4 + i * 0.5,
+              repeat: Infinity,
+              ease: "easeInOut",
+              delay: i * 0.3,
+            }}
+          />
+        ))}
+      </div>
+
+      <div className="absolute inset-0 bg-black/40" style={{ zIndex: 1 }} />
+      
       <div className="relative z-10 max-w-7xl mx-auto" style={{ position: 'sticky', top: 0 }}>
+        {/* Enhanced Header */}
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.8 }}
-          className="mb-16 text-center"
+          className="mb-20 text-center"
         >
-          <h2 className="text-title font-bold text-white mb-4">
-            FLAGSHIP
-          </h2>
-          <h2 className="text-title font-bold text-transparent bg-clip-text bg-gradient-to-r from-red-400 to-red-600">
-            EVENTS
-          </h2>
+          {/* Decorative Line */}
+          <motion.div
+            initial={{ scaleX: 0 }}
+            whileInView={{ scaleX: 1 }}
+            viewport={{ once: true }}
+            transition={{ duration: 1, delay: 0.2 }}
+            className="h-px bg-gradient-to-r from-transparent via-red-500/50 to-transparent max-w-2xl mx-auto mb-8"
+          />
+          
+          {/* Title with Animated Gradient */}
+          <div className="relative inline-block">
+            <motion.h2 
+              className="text-title font-bold text-white mb-2 relative z-10"
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.8, delay: 0.1 }}
+            >
+              FLAGSHIP
+            </motion.h2>
+            <motion.h2 
+              className="text-title font-bold relative z-10"
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.8, delay: 0.2 }}
+            >
+              <span className="relative inline-block">
+                <span className="text-transparent bg-clip-text bg-gradient-to-r from-red-400 via-red-500 to-red-600 animate-gradient">
+                  EVENTS
+                </span>
+                {/* Animated underline */}
+                <motion.div
+                  className="absolute -bottom-2 left-0 right-0 h-1 bg-gradient-to-r from-red-500 via-red-400 to-red-500 rounded-full"
+                  initial={{ scaleX: 0 }}
+                  whileInView={{ scaleX: 1 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.8, delay: 0.4 }}
+                  style={{ transformOrigin: 'left' }}
+                />
+              </span>
+            </motion.h2>
+            
+            {/* Glow effect behind text */}
+            <div className="absolute inset-0 blur-3xl opacity-30 bg-gradient-to-r from-red-500/50 via-red-400/50 to-red-500/50 -z-10" />
+          </div>
+          
+          {/* Subtitle */}
+          <motion.p
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.8, delay: 0.3 }}
+            className="text-lg md:text-xl text-white/60 mt-6 max-w-2xl mx-auto"
+          >
+            Explore our premier events showcasing innovation, creativity, and excellence
+          </motion.p>
+          
+          {/* Decorative Line */}
+          <motion.div
+            initial={{ scaleX: 0 }}
+            whileInView={{ scaleX: 1 }}
+            viewport={{ once: true }}
+            transition={{ duration: 1, delay: 0.5 }}
+            className="h-px bg-gradient-to-r from-transparent via-red-500/50 to-transparent max-w-2xl mx-auto mt-8"
+          />
         </motion.div>
 
-        {/* Clean Grid Layout - 5×3 grid with improved parallax */}
-        <div className="relative grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-6" style={{ 
+        {/* Clean Grid Layout - 5×4 grid with improved parallax */}
+        <div className="relative grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-4 sm:gap-6" style={{ 
           position: 'sticky', 
           top: '10vh',
           transformStyle: 'preserve-3d',
@@ -349,13 +586,13 @@ export default function FlagshipEvents() {
           overflow: 'visible',
         }}>
           {events.map((event, index) => {
-            // Calculate row (0, 1, or 2 for 3 rows)
+            // Calculate row (0, 1, 2, or 3 for 4 rows)
             const rowIndex = Math.floor(index / 5);
             const colIndex = index % 5;
             
             // Reduced parallax speeds to prevent stacking
             const parallaxSpeed = [-25, 30, -20, 28, -30];
-            const rowMultiplier = [1, 1.2, 0.9];
+            const rowMultiplier = [1, 1.2, 0.9, 1.1];
             
             // Smoother parallax y-offset with row variation
             const yOffset = useTransform(
@@ -409,86 +646,50 @@ export default function FlagshipEvents() {
               style={{ 
                 x: xOffset,
                 y: yOffset,
-                scale,
-                height: '400px',
-                willChange: 'transform',
-                zIndex: isHovered ? 100 : (10 - rowIndex),
+                scale: isHovered ? 1.03 : scale,
+                height: isMobile ? '350px' : '400px',
+                willChange: isHovered ? 'transform' : 'auto',
+                zIndex: isHovered ? 50 : (10 - rowIndex),
                 position: 'relative',
                 isolation: 'isolate',
-              }}
-              animate={{
-                y: isHovered ? yOffset.get() - 12 : undefined,
-                scale: isHovered ? 1.05 : undefined,
+                contain: 'layout style paint',
               }}
               transition={{ 
                 delay: index * 0.06,
                 duration: 0.4,
                 ease: [0.25, 0.46, 0.45, 0.94],
+                type: 'tween',
               }}
               className="relative cursor-pointer group"
               onHoverStart={() => setHoveredCard(index)}
               onHoverEnd={() => setHoveredCard(null)}
+              onClick={(e) => handleLearnMore(event, e)}
             >
               {/* Card Container */}
-              <div className="absolute inset-0 rounded-2xl overflow-hidden" style={{
-                backfaceVisibility: 'hidden',
-                transformStyle: 'preserve-3d',
+              <div className="absolute inset-0 rounded-2xl overflow-hidden shadow-xl" style={{
+                boxShadow: isHovered 
+                  ? '0 15px 40px rgba(220, 38, 38, 0.3)' 
+                  : '0 8px 20px rgba(0, 0, 0, 0.4)',
+                transition: 'box-shadow 0.3s ease',
               }}>
                 
-                {/* Shine/Sweep effect on hover */}
-                <motion.div
-                  className="absolute inset-0 z-20 pointer-events-none"
-                  initial={{ 
-                    x: '-100%',
-                    opacity: 0
-                  }}
-                  whileHover={{
-                    x: '200%',
-                    opacity: [0, 0.5, 0],
-                    transition: {
-                      duration: 0.8,
-                      ease: 'easeInOut'
-                    }
-                  }}
-                  style={{
-                    background: 'linear-gradient(110deg, transparent 30%, rgba(220, 38, 38, 0.4) 50%, transparent 70%)',
-                    mixBlendMode: 'overlay'
-                  }}
-                />
 
                 {/* Image Background */}
-                <div className="absolute inset-0">
-                  <motion.img 
-                    src={event.image} 
-                    alt={event.name}
-                    className="w-full h-full object-cover"
-                    style={{ willChange: 'transform' }}
-                    initial={{ scale: 1, filter: 'brightness(0.7) saturate(0.9)' }}
-                    whileHover={{ 
-                      scale: 1.15, 
-                      filter: 'brightness(1) saturate(1.1)',
-                      transition: { duration: 0.6 }
-                    }}
-                  />
-                  {/* Enhanced gradient overlay */}
-                  <motion.div 
-                    className="absolute inset-0"
-                    style={{
-                      background: 'linear-gradient(to top, rgba(0,0,0,0.95), rgba(0,0,0,0.7), rgba(0,0,0,0.4))'
-                    }}
-                    initial={{ opacity: 1 }}
-                    whileHover={{ opacity: 0.65, transition: { duration: 0.5 } }}
-                  />
-                  
-                  {/* Red accent gradient on hover */}
-                  <motion.div
-                    className="absolute inset-0 bg-gradient-to-t from-red-900/20 via-transparent to-transparent pointer-events-none"
-                    initial={{ opacity: 0 }}
-                    whileHover={{
-                      opacity: 1,
-                      transition: { duration: 0.5 }
-                    }}
-                  />
+                <div className="absolute inset-0 bg-black">
+                  <div className="w-full h-full relative">
+                    <Image
+                      src={event.image}
+                      alt={event.name}
+                      fill
+                      sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                      className="object-cover transition-transform duration-500 group-hover:scale-105"
+                      quality={85}
+                      priority={index < 5}
+                      loading={index < 5 ? 'eager' : 'lazy'}
+                    />
+                    {/* Overlay for text readability */}
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/95 via-black/70 to-black/40 group-hover:from-black/85 group-hover:via-black/60 group-hover:to-black/30 transition-all duration-300" />
+                  </div>
                 </div>
                 
                 {/* Content - Bottom aligned */}
@@ -501,27 +702,27 @@ export default function FlagshipEvents() {
                 >
                   {/* Category Badge */}
                   <motion.div 
-                    className="mb-3 inline-block px-3 py-1.5 bg-red-500/20 border border-red-500/30 backdrop-blur-sm rounded-lg"
-                    initial={{ scale: 1, backgroundColor: 'rgba(220, 38, 38, 0.2)', y: 0 }}
+                    className="mb-3 inline-flex items-center gap-2 px-4 py-2 bg-gradient-to-r from-red-500/20 via-red-500/15 to-red-500/20 border border-red-500/40 backdrop-blur-md rounded-full shadow-lg"
+                    initial={{ scale: 0.9, backgroundColor: 'rgba(220, 38, 38, 0.2)', y: 0 }}
                     whileHover={{ 
-                      scale: 1.08, 
-                      backgroundColor: 'rgba(220, 38, 38, 0.4)',
+                      scale: 1.05, 
+                      backgroundColor: 'rgba(220, 38, 38, 0.35)',
                       y: -2,
-                      boxShadow: '0 4px 12px rgba(220, 38, 38, 0.4)',
+                      boxShadow: '0 8px 24px rgba(220, 38, 38, 0.5)',
+                      borderColor: 'rgba(220, 38, 38, 0.6)',
                       transition: { duration: 0.4 }
                     }}
                   >
-                    <span className="text-xs font-bold text-red-400 uppercase tracking-wider">{event.category}</span>
+                    <span className="text-xs font-bold text-red-300 uppercase tracking-wider">{event.category}</span>
                   </motion.div>
                   
                   {/* Event Name */}
                   <motion.h3 
-                    className="text-2xl font-black text-white mb-3 leading-tight"
-                    initial={{ scale: 1, textShadow: '0 2px 8px rgba(0, 0, 0, 0.3)' }}
-                    whileHover={{ 
-                      scale: 1.05,
-                      textShadow: '0 4px 16px rgba(220, 38, 38, 0.6), 0 0 20px rgba(220, 38, 38, 0.4)',
-                      transition: { duration: 0.4 }
+                    className="text-lg sm:text-xl md:text-2xl font-black text-white mb-3 leading-tight drop-shadow-2xl line-clamp-2"
+                    style={{ 
+                      textShadow: '0 2px 8px rgba(0, 0, 0, 0.8)',
+                      wordBreak: 'break-word',
+                      overflowWrap: 'break-word'
                     }}
                   >
                     {event.name}
@@ -529,159 +730,60 @@ export default function FlagshipEvents() {
                   
                   {/* Description and Details - shows on hover with smooth animation */}
                   <motion.div
-                    className="overflow-y-auto pointer-events-none"
+                    className="overflow-hidden pointer-events-none"
                     style={{ 
-                      willChange: 'height, opacity, transform',
-                      maxHeight: isHovered ? '280px' : '0px',
+                      maxHeight: isHovered ? '200px' : '0px',
                     }}
                     animate={{
-                      height: isHovered ? 'auto' : 0,
                       opacity: isHovered ? 1 : 0,
-                      y: isHovered ? 0 : 15,
-                      filter: isHovered ? 'blur(0px)' : 'blur(4px)',
+                      height: isHovered ? 'auto' : 0,
                     }}
                     transition={{
-                      height: { duration: 0.5, ease: [0.25, 0.46, 0.45, 0.94] as any },
-                      opacity: { duration: 0.4, delay: isHovered ? 0.1 : 0 },
-                      y: { duration: 0.5, ease: [0.25, 0.46, 0.45, 0.94] as any },
-                      filter: { duration: 0.4, delay: isHovered ? 0.1 : 0 }
+                      opacity: { duration: 0.3 },
+                      height: { duration: 0.4, ease: 'easeInOut' }
                     }}
                   >
-                    <div className="pr-1">
-                      <p className="text-xs text-white/80 leading-relaxed mt-2 mb-2">
+                    <div className="pr-1 overflow-y-auto max-h-[200px]">
+                      <p className="text-xs text-white/90 leading-relaxed mt-2 mb-2 line-clamp-3">
                         {event.description}
                       </p>
                       
                       {/* Event Details - Bullet Points */}
                       {event.details && event.details.length > 0 && (
-                        <div className="space-y-1.5 mb-2">
-                          {event.details.map((detail, idx) => (
-                            <motion.div
+                        <div className="space-y-1 mb-2">
+                          {event.details.slice(0, 3).map((detail, idx) => (
+                            <div
                               key={idx}
-                              animate={{ 
-                                opacity: isHovered ? 1 : 0,
-                                x: isHovered ? 0 : -10,
-                              }}
-                              transition={{
-                                delay: isHovered ? (0.25 + (idx * 0.05)) : 0,
-                                duration: 0.3
-                              }}
                               className="flex items-start gap-1.5"
                             >
                               <span className="text-red-400 mt-0.5 flex-shrink-0 text-[10px]">▸</span>
-                              <span className="text-[10px] text-white/70 leading-relaxed">{detail}</span>
-                            </motion.div>
+                              <span className="text-[10px] text-white/80 leading-relaxed line-clamp-1">{detail}</span>
+                            </div>
                           ))}
                         </div>
                       )}
                       
                       {/* Arrow indicator - appears on hover - clickable */}
-                      <motion.button
+                      <button
                         onClick={(e) => handleLearnMore(event, e)}
                         className="mt-2 flex items-center gap-2 text-red-400 hover:text-red-300 transition-colors pointer-events-auto"
-                        animate={{ 
-                          opacity: isHovered ? 1 : 0, 
-                          x: isHovered ? 0 : -15,
-                          scale: isHovered ? 1 : 0.8,
-                        }}
-                        transition={{
-                          delay: isHovered ? 0.4 : 0,
-                          duration: 0.4,
-                          ease: [0.34, 1.56, 0.64, 1] as any
-                        }}
                       >
                         <span className="text-xs font-bold">Learn More</span>
-                        <motion.svg 
+                        <svg 
                           className="w-3 h-3" 
                           fill="none" 
                           stroke="currentColor" 
                           viewBox="0 0 24 24"
-                          initial={{ x: 0 }}
-                          whileHover={{ 
-                            x: 4,
-                            scale: 1.1
-                          }}
-                          transition={{ 
-                            type: 'spring',
-                            stiffness: 400,
-                            damping: 17
-                          }}
                         >
                           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M13 7l5 5m0 0l-5 5m5-5H6" />
-                        </motion.svg>
-                      </motion.button>
+                        </svg>
+                      </button>
                     </div>
                   </motion.div>
                 </div>
 
-                {/* Red accent border - appears on hover */}
-                <motion.div 
-                  className="absolute inset-0 border-2 border-transparent rounded-2xl pointer-events-none"
-                  initial={{ 
-                    borderColor: 'rgba(220, 38, 38, 0)', 
-                    boxShadow: '0 0 0 rgba(220, 38, 38, 0)',
-                    borderWidth: '2px'
-                  }}
-                  whileHover={{ 
-                    borderColor: 'rgba(220, 38, 38, 0.7)',
-                    boxShadow: '0 0 60px rgba(220, 38, 38, 0.5), 0 8px 32px rgba(0, 0, 0, 0.4), inset 0 0 40px rgba(220, 38, 38, 0.1)',
-                    borderWidth: '3px',
-                    transition: { duration: 0.5 }
-                  }}
-                />
-                
-                {/* Top icon */}
-                <motion.div 
-                  className="absolute top-6 right-6 text-5xl"
-                  initial={{ 
-                    opacity: 0.3, 
-                    scale: 1, 
-                    rotate: 0,
-                    filter: 'drop-shadow(0 0 0 rgba(220, 38, 38, 0))'
-                  }}
-                  whileHover={{ 
-                    opacity: 1, 
-                    scale: 1.2,
-                    rotate: 12,
-                    filter: 'drop-shadow(0 0 20px rgba(220, 38, 38, 0.8)) drop-shadow(0 0 40px rgba(220, 38, 38, 0.4))',
-                    y: -5,
-                    transition: { 
-                      duration: 0.5,
-                      type: 'spring',
-                      stiffness: 200,
-                      damping: 15
-                    }
-                  }}
-                >
-                  {event.icon}
-                </motion.div>
-                
-                {/* Enhanced glow effect on hover - multiple layers */}
-                <motion.div
-                  className="absolute inset-0 rounded-2xl pointer-events-none"
-                  initial={{ opacity: 0, scale: 1 }}
-                  whileHover={{ 
-                    opacity: 1,
-                    scale: 1.1,
-                    transition: { duration: 0.6 }
-                  }}
-                  style={{
-                    boxShadow: '0 0 80px rgba(220, 38, 38, 0.5), 0 0 120px rgba(220, 38, 38, 0.3), 0 0 160px rgba(220, 38, 38, 0.15)',
-                  }}
-                />
-                
-                {/* Inner glow effect */}
-                <motion.div
-                  className="absolute inset-[2px] rounded-2xl pointer-events-none"
-                  initial={{ opacity: 0 }}
-                  whileHover={{
-                    opacity: 1,
-                    transition: { duration: 0.5 }
-                  }}
-                  style={{
-                    background: 'radial-gradient(circle at center, rgba(220, 38, 38, 0.15) 0%, transparent 70%)',
-                  }}
-                />
+                {/* Simple border on hover */}
+                <div className="absolute inset-0 border-2 border-transparent rounded-2xl pointer-events-none group-hover:border-red-500/50 transition-all duration-300" />
               </div>
             </motion.div>
           )})}
@@ -790,14 +892,22 @@ export default function FlagshipEvents() {
                 {/* Hero Image Section */}
                 <div className="relative h-72 md:h-96 overflow-hidden">
                   {/* Background Image with Parallax Effect */}
-                  <motion.img 
-                    src={selectedEvent.image} 
-                    alt={selectedEvent.name}
-                    className="w-full h-full object-cover"
+                  <motion.div
+                    className="w-full h-full"
                     initial={{ scale: 1.1 }}
                     animate={{ scale: 1 }}
                     transition={{ duration: 0.6 }}
-                  />
+                  >
+                    <Image
+                      src={selectedEvent.image}
+                      alt={selectedEvent.name}
+                      fill
+                      sizes="100vw"
+                      className="object-cover"
+                      quality={85}
+                      priority
+                    />
+                  </motion.div>
                   
                   {/* Enhanced Gradient Overlay */}
                   <div className="absolute inset-0 bg-gradient-to-t from-black via-black/85 to-black/40" />

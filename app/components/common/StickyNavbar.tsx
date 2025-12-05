@@ -11,7 +11,6 @@ const menuItems = [
   { label: 'Events', id: 'events' },
   { label: 'Stats', id: 'graphs' },
   { label: 'Gallery', id: 'glimpses' },
-  { label: 'Our Team', id: 'team' },
   { label: 'Sponsors', id: 'previous-sponsors' },
   { label: 'Contact', id: 'sponsor-us' },
 ];

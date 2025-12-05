@@ -2,6 +2,7 @@
 
 import { motion, useMotionValue, useSpring, useTransform } from 'framer-motion';
 import { useEffect, useRef, useState } from 'react';
+import Image from 'next/image';
 
 interface ImageItem {
   src: string;
@@ -60,14 +61,21 @@ export default function MouseScaleGallery({ images, className = '' }: MouseScale
           transition={{ type: 'spring', stiffness: 200 }}
           className="relative group cursor-pointer"
         >
-          <div className="relative overflow-hidden rounded-2xl border border-white/10 bg-white/5 backdrop-blur-md">
-            <motion.img
-              src={image.src}
-              alt={image.alt}
-              className="w-full h-full object-cover"
+          <div className="relative overflow-hidden rounded-2xl border border-white/10 bg-white/5 backdrop-blur-md aspect-square">
+            <motion.div
+              className="w-full h-full"
               whileHover={{ scale: 1.2 }}
               transition={{ duration: 0.3 }}
-            />
+            >
+              <Image
+                src={image.src}
+                alt={image.alt}
+                fill
+                sizes="(max-width: 768px) 33vw, 300px"
+                className="object-cover"
+                quality={75}
+              />
+            </motion.div>
             <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />
             <div className="absolute bottom-4 left-4 opacity-0 group-hover:opacity-100 transition-opacity">
               <p className="text-white font-medium">{image.alt}</p>

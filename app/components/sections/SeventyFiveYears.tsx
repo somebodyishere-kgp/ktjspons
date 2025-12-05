@@ -26,7 +26,7 @@ export default function SeventyFiveYears() {
   return (
     <section
       id="seventy-five-years"
-      className="relative min-h-screen py-20 md:py-32 px-8 flex items-center justify-center"
+      className="relative min-h-screen py-16 sm:py-20 md:py-32 px-4 sm:px-6 md:px-8 flex items-center justify-center"
     >
       <div className="absolute inset-0 bg-black/50" />
       
@@ -40,7 +40,7 @@ export default function SeventyFiveYears() {
           className="text-center mb-16"
         >
           <motion.h1
-            className="text-9xl md:text-[15rem] font-black text-transparent bg-clip-text bg-gradient-to-r from-red-500 via-red-600 to-red-700 leading-none mb-6"
+            className="text-6xl sm:text-7xl md:text-9xl lg:text-[12rem] xl:text-[15rem] font-black text-transparent bg-clip-text bg-gradient-to-r from-red-500 via-red-600 to-red-700 leading-none mb-4 sm:mb-6"
             style={{ fontFamily: 'Helvetica Neue, sans-serif' }}
           >
             {count}
@@ -62,11 +62,12 @@ export default function SeventyFiveYears() {
             className="space-y-6"
           >
             <div className="space-y-4">
-              <h2 className="text-2xl md:text-4xl font-bold text-white">First IIT in Independent India</h2>
-              <p className="text-lg md:text-xl text-white/70 leading-relaxed">
+              <h2 className="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-bold text-white">First IIT in Independent India</h2>
+              <p className="text-base sm:text-lg md:text-xl text-white/70 leading-relaxed">
                 Established in 1951, IIT Kharagpur was founded as the <span className="text-red-400 font-semibold">first IIT in independent India</span>, 
-                standing as a beacon of knowledge and innovation. For 75 years, it has produced generations of pioneers who have reshaped industries, 
-                advanced science, and contributed significantly to the nation and the world.
+                standing as a beacon of knowledge, producing generations of pioneers who have reshaped industries, advanced science, and contributed 
+                significantly to the nation and the world. The Platinum Jubilee is not just a commemoration of the past, it is a reaffirmation of the 
+                institute&apos;s vision to lead the future through education, research, and innovation.
               </p>
             </div>
 
@@ -85,11 +86,12 @@ export default function SeventyFiveYears() {
             className="space-y-6"
           >
             <div className="space-y-4">
-              <h2 className="text-2xl md:text-4xl font-bold text-white">A Legacy Extended</h2>
-              <p className="text-lg md:text-xl text-white/70 leading-relaxed">
+              <h2 className="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-bold text-white">A Legacy Extended</h2>
+              <p className="text-base sm:text-lg md:text-xl text-white/70 leading-relaxed">
                 Since its inception in 2004, <span className="text-red-400 font-semibold">Kshitij has become a powerful extension</span> of the institute&apos;s legacy. 
                 As the techno-management symposium of IIT Kharagpur, it has provided a platform where students from across the globe converge to 
-                compete, collaborate, and create.
+                compete, collaborate, and create. In celebrating the Platinum Jubilee, Kshitij 2026 will rise to the occasion by embodying the spirit 
+                of the institute, curating an experience that is not only a tribute to 75 glorious years but also a catalyst for the next wave of innovation.
               </p>
             </div>
 
@@ -113,8 +115,9 @@ export default function SeventyFiveYears() {
               Join Us in Shaping Tomorrow
             </p>
             <p className="text-base md:text-lg text-white/60">
-              As we celebrate the Platinum Jubilee of IIT Kharagpur, Kshitij 2026 invites you to honour the past, 
-              engage with the present, and shape the horizon of tomorrow.
+              This special edition of Kshitij will serve as a confluence of tradition and transformation, where the institute&apos;s illustrious past 
+              will inspire future trailblazers. We envision Kshitij 2026 as a festival not just of technology and management, but of legacy and possibility. 
+              As we celebrate the Platinum Jubilee of IIT Kharagpur, Kshitij invites you to be a part of this landmark year.
             </p>
           </div>
         </motion.div>

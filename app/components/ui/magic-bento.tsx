@@ -11,7 +11,7 @@ export function MagicBento({ children, className, style }: MagicBentoProps) {
   return (
     <div
       className={cn(
-        "grid grid-cols-1 md:grid-cols-4 auto-rows-fr gap-0",
+        "grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 auto-rows-fr gap-0",
         className
       )}
       style={style}
@@ -41,7 +41,7 @@ export function MagicBentoItem({
 
   return (
     <div
-      className={cn("relative min-h-[250px] md:min-h-[300px]", className)}
+      className={cn("relative min-h-[200px] sm:min-h-[250px] md:min-h-[300px]", className)}
       style={style}
     >
       {children}

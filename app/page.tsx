@@ -32,12 +32,6 @@ const Events = dynamic(() => import('@/components/sections/FlagshipEvents'), {
 const Graphs = dynamic(() => import('@/components/sections/Graphs'), { 
   ssr: false,
 });
-const PDFs = dynamic(() => import('@/components/sections/PDFs'), { 
-  ssr: false,
-});
-const Team = dynamic(() => import('@/components/sections/Team'), { 
-  ssr: false,
-});
 const PreviousSponsors = dynamic(() => import('@/components/sections/PreviousSponsors'), { 
   ssr: false,
 });
@@ -56,12 +50,23 @@ export default function Home() {
   const [isMobile, setIsMobile] = useState(false);
 
   useEffect(() => {
+    // Debounce resize to prevent excessive re-renders
+    let timeoutId: NodeJS.Timeout;
     const checkMobile = () => {
-      setIsMobile(window.innerWidth < 1024);
+      clearTimeout(timeoutId);
+      timeoutId = setTimeout(() => {
+        setIsMobile(window.innerWidth < 1024);
+      }, 150);
     };
-    checkMobile();
-    window.addEventListener('resize', checkMobile);
-    return () => window.removeEventListener('resize', checkMobile);
+    
+    // Set initial value
+    setIsMobile(window.innerWidth < 1024);
+    
+    window.addEventListener('resize', checkMobile, { passive: true });
+    return () => {
+      clearTimeout(timeoutId);
+      window.removeEventListener('resize', checkMobile);
+    };
   }, []);
 
   useEffect(() => {
@@ -127,14 +132,6 @@ export default function Home() {
       
       <PerspectiveTransition>
         <Graphs />
-      </PerspectiveTransition>
-      
-      <PerspectiveTransition>
-        <PDFs />
-      </PerspectiveTransition>
-      
-      <PerspectiveTransition>
-        <Team />
       </PerspectiveTransition>
       
       <PerspectiveTransition>
