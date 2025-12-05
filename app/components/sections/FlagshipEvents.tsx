@@ -300,7 +300,6 @@ export default function FlagshipEvents() {
   const { scrollYProgress } = useScroll({
     target: sectionRef,
     offset: ["start start", "end end"],
-    layoutEffect: false, // Use effect instead of layoutEffect for better performance
   });
 
   // Detect mobile
