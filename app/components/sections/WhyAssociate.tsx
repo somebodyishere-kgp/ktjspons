@@ -128,7 +128,7 @@ function BenefitCard({ benefit, index }: BenefitCardProps) {
       ref={cardRef}
       initial={{ opacity: 0, y: 50, scale: 0.95 }}
       whileInView={{ opacity: 1, y: 0, scale: 1 }}
-      viewport={{ once: false, amount: 0.2, margin: '0px 0px -50px 0px' }}
+      viewport={{ once: true, amount: 0.3, margin: '-100px' }}
       transition={{
         duration: 0.6,
         delay: index * 0.08,

@@ -640,22 +640,21 @@ export default function FlagshipEvents() {
               key={event.name}
               initial="initial"
               whileInView="animate"
-              viewport={{ once: true, margin: "-50px" }}
+              viewport={{ once: true, margin: "-100px" }}
               variants={cardVariants}
               style={{ 
                 x: xOffset,
                 y: yOffset,
                 scale: isHovered ? 1.03 : scale,
                 height: isMobile ? '350px' : '400px',
-                willChange: isHovered ? 'transform' : 'auto',
                 zIndex: isHovered ? 50 : (10 - rowIndex),
                 position: 'relative',
                 isolation: 'isolate',
                 contain: 'layout style paint',
               }}
               transition={{ 
-                delay: index * 0.06,
-                duration: 0.4,
+                delay: index * 0.04,
+                duration: 0.3,
                 ease: [0.25, 0.46, 0.45, 0.94],
                 type: 'tween',
               }}

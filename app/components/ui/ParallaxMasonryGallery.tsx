@@ -25,6 +25,7 @@ const GalleryImageItem = memo(function GalleryImageItem({
   onHover,
   onImageClick,
   isVisible,
+  isMobile,
 }: {
   image: ImageItem;
   index: number;
@@ -33,11 +34,18 @@ const GalleryImageItem = memo(function GalleryImageItem({
   onHover: (index: number | null) => void;
   onImageClick: (imageSrc: string, alt: string, e: React.MouseEvent<HTMLDivElement>) => void;
   isVisible: boolean;
+  isMobile: boolean;
 }) {
-  // Calculate size based on aspect ratio
+  // Calculate size based on aspect ratio - responsive heights
   const imageClass = aspect > 1.2 ? 'wide' : aspect < 0.8 ? 'tall' : 'square';
-  const baseHeight = 280;
-  const height = imageClass === 'tall' ? baseHeight * 1.5 : imageClass === 'wide' ? baseHeight * 0.8 : baseHeight;
+  // Responsive base heights: smaller on mobile, larger on desktop
+  const baseHeight = isMobile ? 180 : 280;
+  
+  const height = imageClass === 'tall' 
+    ? baseHeight * 1.5 
+    : imageClass === 'wide' 
+    ? baseHeight * 0.8 
+    : baseHeight;
 
   return (
     <motion.div
@@ -63,7 +71,7 @@ const GalleryImageItem = memo(function GalleryImageItem({
           ease: [0.25, 0.46, 0.45, 0.94]
         }
       }}
-      className="relative group cursor-pointer overflow-hidden rounded-xl bg-gray-900"
+      className="relative group cursor-pointer overflow-hidden rounded-lg sm:rounded-xl bg-gray-900"
     >
       <motion.div
         className="absolute inset-0"
@@ -109,11 +117,24 @@ export function ParallaxMasonryGallery({
   const [imageAspects, setImageAspects] = useState<Map<string, number>>(new Map());
   const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
   const [isExpanded, setIsExpanded] = useState(false);
+  const [isMobile, setIsMobile] = useState(false);
+  
+  // Detect mobile for responsive adjustments
+  useEffect(() => {
+    if (typeof window === 'undefined') return;
+    const checkMobile = () => setIsMobile(window.innerWidth < 640);
+    checkMobile();
+    window.addEventListener('resize', checkMobile, { passive: true });
+    return () => window.removeEventListener('resize', checkMobile);
+  }, []);
+  
+  // Adjust initial visible count based on screen size
+  const adjustedInitialCount = isMobile ? 2 : initialVisibleCount;
 
-  // Memoize visible images
+  // Memoize visible images with responsive count
   const visibleImages = useMemo(() => {
-    return isExpanded ? images : images.slice(0, initialVisibleCount);
-  }, [images, isExpanded, initialVisibleCount]);
+    return isExpanded ? images : images.slice(0, adjustedInitialCount);
+  }, [images, isExpanded, adjustedInitialCount]);
 
   // Load aspect ratios only for visible images initially
   useEffect(() => {
@@ -171,7 +192,7 @@ export function ParallaxMasonryGallery({
       ref={containerRef}
       className={`w-full ${className}`}
     >
-      <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-3 sm:gap-4 md:gap-5">
+      <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-2 sm:gap-3 md:gap-4 lg:gap-5">
         {visibleImages.map((image, index) => {
           const aspect = imageAspects.get(image.src) ?? 1;
           
@@ -185,26 +206,27 @@ export function ParallaxMasonryGallery({
               onHover={setHoveredIndex}
               onImageClick={handleImageClick}
               isVisible={true}
+              isMobile={isMobile}
             />
           );
         })}
       </div>
 
-      {/* Expand Button */}
-      {!isExpanded && images.length > initialVisibleCount && (
+      {/* Expand Button - Responsive */}
+      {!isExpanded && images.length > adjustedInitialCount && (
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.5, duration: 0.4 }}
-          className="flex justify-center mt-8 md:mt-12"
+          className="flex justify-center mt-6 sm:mt-8 md:mt-12 px-4"
         >
           <motion.button
             onClick={handleExpand}
-            whileHover={{ scale: 1.05 }}
+            whileHover={{ scale: isMobile ? 1 : 1.05 }}
             whileTap={{ scale: 0.95 }}
-            className="px-8 py-4 bg-gradient-to-r from-red-600 to-red-700 hover:from-red-700 hover:to-red-800 text-white font-semibold rounded-xl shadow-lg shadow-red-500/30 transition-all duration-300"
+            className="px-4 py-2.5 sm:px-6 sm:py-3 md:px-8 md:py-4 bg-gradient-to-r from-red-600 to-red-700 hover:from-red-700 hover:to-red-800 text-white text-sm sm:text-base font-semibold rounded-lg sm:rounded-xl shadow-lg shadow-red-500/30 transition-all duration-300 w-full max-w-xs sm:max-w-none"
           >
-            View All {images.length} Images
+            <span className="block sm:inline">View All {images.length} Images</span>
           </motion.button>
         </motion.div>
       )}
