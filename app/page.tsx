@@ -110,9 +110,7 @@ export default function Home() {
         <StickyNavbar heroTitleRef={heroTitleRef} />
       )}
       
-      <PerspectiveTransition>
-        <Hero titleRef={heroTitleRef} navbarTitleSlotRef={heroTitleRef} />
-      </PerspectiveTransition>
+      <Hero titleRef={heroTitleRef} navbarTitleSlotRef={heroTitleRef} />
       
       <PerspectiveTransition>
         <WhoAreWe />

@@ -177,17 +177,7 @@ export default function WhoAreWe() {
               }}
               className="relative bg-gradient-to-br from-red-600/10 to-red-800/10 rounded-2xl p-6 border border-red-500/30 overflow-hidden group cursor-pointer"
             >
-              <motion.div
-                className="absolute inset-0 bg-gradient-to-br from-red-500/0 to-red-600/20"
-                animate={{
-                  opacity: [0.3, 0.6, 0.3],
-                }}
-                transition={{
-                  duration: 3,
-                  repeat: Infinity,
-                  ease: 'easeInOut'
-                }}
-              />
+              <div className="absolute inset-0 bg-gradient-to-br from-red-500/10 to-red-600/20 opacity-50" />
               <div className="relative z-10">
                 <div className="text-3xl md:text-4xl font-bold text-white mb-2">
                   TO THE NEXT{' '}

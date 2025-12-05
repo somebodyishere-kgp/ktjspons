@@ -346,23 +346,37 @@ export function ParticleTextEffect({
     const container = containerRef.current
     if (!canvas || !container) return
 
-    // Initial canvas size
-    if (autoResize) {
-      const rect = container.getBoundingClientRect()
-      canvasSizeRef.current = {
-        width: rect.width || window.innerWidth,
-        height: rect.height || window.innerHeight
+    // Wait for container to be visible and have dimensions
+    const initCanvas = () => {
+      if (autoResize) {
+        const rect = container.getBoundingClientRect()
+        const width = rect.width || window.innerWidth
+        const height = rect.height || window.innerHeight
+        
+        if (width > 0 && height > 0) {
+          canvasSizeRef.current = { width, height }
+          canvas.width = width
+          canvas.height = height
+          
+          // Initialize with first word
+          nextWord(words[0], canvas)
+          
+          // Start animation
+          animate()
+        } else {
+          // Retry if dimensions aren't ready
+          requestAnimationFrame(initCanvas)
+        }
+      } else {
+        canvas.width = canvasSizeRef.current.width
+        canvas.height = canvasSizeRef.current.height
+        nextWord(words[0], canvas)
+        animate()
       }
     }
 
-    canvas.width = canvasSizeRef.current.width
-    canvas.height = canvasSizeRef.current.height
-
-    // Initialize with first word
-    nextWord(words[0], canvas)
-
-    // Start animation
-    animate()
+    // Use a small delay to ensure container is rendered
+    const timeoutId = setTimeout(initCanvas, 100)
 
     // Resize handler
     let resizeTimeout: NodeJS.Timeout
@@ -407,6 +421,7 @@ export function ParticleTextEffect({
     canvas.addEventListener("contextmenu", handleContextMenu)
 
     return () => {
+      clearTimeout(timeoutId)
       if (animationRef.current) {
         cancelAnimationFrame(animationRef.current)
       }

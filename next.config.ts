@@ -11,7 +11,7 @@ const nextConfig: NextConfig = {
     contentSecurityPolicy: "default-src 'self'; script-src 'none'; sandbox;",
     // Optimize image loading
     unoptimized: false,
-    qualities: [75, 85, 90], // Support all quality levels
+    qualities: [75, 80, 85, 90], // Support all quality levels
     // Faster image loading
     loader: 'default',
     // Reduce image sizes for faster loading

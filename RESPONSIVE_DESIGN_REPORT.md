@@ -161,3 +161,4 @@ The site is **mostly responsive** with good mobile navigation and layout adaptat
 
 With the recommended fixes, the site would achieve **9/10** for responsiveness.
 
+

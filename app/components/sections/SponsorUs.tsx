@@ -10,45 +10,6 @@ interface FormErrors {
   message?: string;
 }
 
-interface SponsorshipTier {
-  name: string;
-  color: string;
-  gradient: string;
-  benefits: string[];
-  icon: string;
-}
-
-const sponsorshipTiers: SponsorshipTier[] = [
-  {
-    name: 'Platinum',
-    color: 'text-yellow-400',
-    gradient: 'from-yellow-400 via-yellow-500 to-yellow-600',
-    benefits: ['Prime booth location', 'Logo on all materials', 'Keynote speaker opportunity', 'Social media promotion'],
-    icon: '👑',
-  },
-  {
-    name: 'Gold',
-    color: 'text-yellow-600',
-    gradient: 'from-yellow-600 via-yellow-500 to-amber-500',
-    benefits: ['Premium booth location', 'Logo on website & banners', 'Workshop hosting', 'Media mentions'],
-    icon: '⭐',
-  },
-  {
-    name: 'Silver',
-    color: 'text-gray-300',
-    gradient: 'from-gray-400 via-gray-300 to-gray-200',
-    benefits: ['Standard booth location', 'Logo on website', 'Social media shoutout', 'Brand visibility'],
-    icon: '✨',
-  },
-  {
-    name: 'Bronze',
-    color: 'text-amber-700',
-    gradient: 'from-amber-700 via-amber-600 to-amber-800',
-    benefits: ['Booth space', 'Website mention', 'Social media tag', 'Basic visibility'],
-    icon: '🎯',
-  },
-];
-
 const stats = [
   { label: 'Years of Excellence', value: '20+', icon: '📅' },
   { label: 'Sponsor Partners', value: '50+', icon: '🤝' },
@@ -67,8 +28,6 @@ export default function SponsorUs() {
   const [errors, setErrors] = useState<FormErrors>({});
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSuccess, setIsSuccess] = useState(false);
-  const [selectedTier, setSelectedTier] = useState<string | null>(null);
-  const [hoveredTier, setHoveredTier] = useState<string | null>(null);
 
   const validateEmail = (email: string): boolean => {
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -169,7 +128,7 @@ export default function SponsorUs() {
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
+          viewport={{ once: true, margin: "-100px" }}
           transition={{ duration: 0.8 }}
           className="mb-16 text-center"
         >
@@ -202,7 +161,7 @@ export default function SponsorUs() {
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
+          viewport={{ once: true, margin: "-100px" }}
           transition={{ delay: 0.3, duration: 0.8 }}
           className="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-6 mb-16"
         >
@@ -211,7 +170,7 @@ export default function SponsorUs() {
               key={stat.label}
               initial={{ opacity: 0, scale: 0.8 }}
               whileInView={{ opacity: 1, scale: 1 }}
-              viewport={{ once: true }}
+              viewport={{ once: true, margin: "-100px" }}
               transition={{ delay: 0.4 + index * 0.1, duration: 0.6 }}
               whileHover={{ scale: 1.05, y: -5 }}
               className="bg-gradient-to-br from-red-900/20 via-red-800/10 to-red-900/20 backdrop-blur-xl rounded-2xl p-6 border border-red-500/20 hover:border-red-500/40 transition-all duration-300"
@@ -223,77 +182,6 @@ export default function SponsorUs() {
               <div className="text-white/60 text-sm font-medium">{stat.label}</div>
             </motion.div>
           ))}
-        </motion.div>
-
-        {/* Sponsorship Tiers */}
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ delay: 0.5, duration: 0.8 }}
-          className="mb-16"
-        >
-          <h3 className="text-3xl md:text-4xl font-bold text-white text-center mb-8">
-            Choose Your Partnership Tier
-          </h3>
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6">
-            {sponsorshipTiers.map((tier, index) => (
-              <motion.div
-                key={tier.name}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: 0.6 + index * 0.1, duration: 0.6 }}
-                whileHover={{ scale: 1.05, y: -8 }}
-                onMouseEnter={() => setHoveredTier(tier.name)}
-                onMouseLeave={() => setHoveredTier(null)}
-                onClick={() => setSelectedTier(selectedTier === tier.name ? null : tier.name)}
-                className={`relative bg-gradient-to-br from-black via-gray-900 to-black rounded-2xl p-6 border-2 cursor-pointer transition-all duration-300 overflow-hidden ${
-                  selectedTier === tier.name
-                    ? 'border-red-500 shadow-2xl shadow-red-500/50'
-                    : 'border-red-500/30 hover:border-red-500/60'
-                }`}
-              >
-                {/* Gradient overlay */}
-                <div className={`absolute inset-0 bg-gradient-to-br ${tier.gradient} opacity-0 hover:opacity-10 transition-opacity duration-300`} />
-                
-                <div className="relative z-10">
-                  <div className="text-4xl mb-4">{tier.icon}</div>
-                  <h4 className={`text-2xl font-bold mb-2 ${tier.color}`}>{tier.name}</h4>
-                  
-                  <AnimatePresence>
-                    {(hoveredTier === tier.name || selectedTier === tier.name) && (
-                      <motion.ul
-                        initial={{ opacity: 0, height: 0 }}
-                        animate={{ opacity: 1, height: 'auto' }}
-                        exit={{ opacity: 0, height: 0 }}
-                        transition={{ duration: 0.3 }}
-                        className="mt-4 space-y-2 text-white/70 text-sm overflow-hidden"
-                      >
-                        {tier.benefits.map((benefit, i) => (
-                          <motion.li
-                            key={benefit}
-                            initial={{ opacity: 0, x: -10 }}
-                            animate={{ opacity: 1, x: 0 }}
-                            transition={{ delay: i * 0.05 }}
-                            className="flex items-start gap-2"
-                          >
-                            <span className="text-red-400 mt-0.5">✓</span>
-                            <span>{benefit}</span>
-                          </motion.li>
-                        ))}
-                      </motion.ul>
-                    )}
-                  </AnimatePresence>
-                </div>
-
-                {/* Shine effect */}
-                <div className="absolute inset-0 opacity-0 hover:opacity-100 transition-opacity duration-500 pointer-events-none overflow-hidden">
-                  <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/10 to-transparent transform -skew-x-12 translate-x-[-150%] hover:translate-x-[150%] transition-transform duration-1000" />
-                </div>
-              </motion.div>
-            ))}
-          </div>
         </motion.div>
 
         {/* Main Content Grid */}

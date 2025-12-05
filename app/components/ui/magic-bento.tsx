@@ -37,11 +37,13 @@ export function MagicBentoItem({
   const style: CSSProperties = {
     gridColumn: `span ${span}`,
     gridRow: rowSpan > 1 ? `span ${rowSpan}` : 'auto',
+    minHeight: '250px',
+    minWidth: '200px',
   };
 
   return (
     <div
-      className={cn("relative min-h-[180px] sm:min-h-[200px] md:min-h-[250px]", className)}
+      className={cn("relative", className)}
       style={style}
     >
       {children}
