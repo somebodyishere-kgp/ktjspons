@@ -601,8 +601,6 @@ export default function DomeGallery({
                         ? 'opacity-100 scale-100' 
                         : 'opacity-0 scale-95'
                     } group-hover:scale-105`}
-                    decoding="async"
-                    fetchPriority={i < 8 ? "high" : i < 20 ? "auto" : "low"}
                     style={{ 
                       willChange: loadedImages.has(it.src) ? 'auto' : 'transform, opacity',
                       transform: 'translateZ(0)',

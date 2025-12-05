@@ -130,7 +130,7 @@ export default function TiltedCard({
           }}
         >
           <Image
-            src={imageSrc}
+            src={typeof imageSrc === 'string' ? imageSrc : String(imageSrc || '')}
             alt={altText}
             fill
             sizes={`${imageWidth}`}

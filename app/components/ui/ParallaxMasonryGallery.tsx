@@ -24,7 +24,6 @@ const GalleryImageItem = memo(function GalleryImageItem({
   isHovered,
   onHover,
   onImageClick,
-  scrollYProgress,
   isVisible,
 }: {
   image: ImageItem;
@@ -59,10 +58,10 @@ const GalleryImageItem = memo(function GalleryImageItem({
       }}
       whileHover={{ 
         scale: 1.03,
-      }}
-      transition={{
-        duration: 0.25,
-        ease: [0.25, 0.46, 0.45, 0.94]
+        transition: {
+          duration: 0.25,
+          ease: [0.25, 0.46, 0.45, 0.94]
+        }
       }}
       className="relative group cursor-pointer overflow-hidden rounded-xl bg-gray-900"
     >

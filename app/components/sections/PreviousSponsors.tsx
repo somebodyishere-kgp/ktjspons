@@ -63,7 +63,6 @@ export default function PreviousSponsors() {
   const { scrollYProgress } = useScroll({
     target: sectionRef,
     offset: ['start end', 'end start'],
-    layoutEffect: false, // Use effect instead of layoutEffect for better performance
   });
 
   // Optimized parallax effects - reduced range to prevent excessive movement
